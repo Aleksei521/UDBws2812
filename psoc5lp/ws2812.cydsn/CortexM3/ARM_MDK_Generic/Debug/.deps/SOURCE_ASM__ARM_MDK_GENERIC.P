@@ -1,0 +1,10 @@
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/CyBootAsmRv.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyBootAsmRv.s D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevicerv.inc D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevicerv_trm.inc D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitterrv.inc 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyBootAsmRv.s : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevicerv.inc : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevicerv_trm.inc : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitterrv.inc : 
+

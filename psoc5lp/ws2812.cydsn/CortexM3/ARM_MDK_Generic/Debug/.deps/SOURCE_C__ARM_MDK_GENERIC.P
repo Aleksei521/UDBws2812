@@ -1,0 +1,84 @@
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/Cm3Start.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/Cm3Start.c D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyDmac.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/cyapicallbacks.h 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/Cm3Start.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyDmac.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/cyapicallbacks.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/CyDmac.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyDmac.c D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyDmac.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyDmac.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/CyFlash.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.c D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/CyLib.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.c D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/CySpc.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.c D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/cyPm.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.c D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/cyapicallbacks.h 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/cy_em_eeprom.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cy_em_eeprom.c D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cy_em_eeprom.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/cyfitter_cfg.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter_cfg.c D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/cyapicallbacks.h 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter_cfg.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/cymetadata.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cymetadata.c 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cymetadata.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/cyutils.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyutils.c 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyutils.c : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/CortexM3/ARM_MDK_Generic/Debug/main.o : D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cmsis_armcc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cmsis_compiler.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cmsis_gcc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/core_cm3.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydisabledsheets.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cypins.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/project.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyDmac.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyFlash.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CyLib.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/CySpc.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyPm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydevice_trm.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cytypes.h D:/1_work/my_project/psoc5lp/ws2812.cydsn/main.c 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cmsis_armcc.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cmsis_compiler.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cmsis_gcc.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/core_cm3.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cydisabledsheets.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/cypins.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/Generated_Source/PSoC5/project.h : 
+
+D:/1_work/my_project/psoc5lp/ws2812.cydsn/main.c : 
+

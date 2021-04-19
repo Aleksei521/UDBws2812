@@ -1,0 +1,3013 @@
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.TIMER100HZ_HANDLER,"ax",%progbits
+  20              		.align	2
+  21              		.global	TIMER100HZ_HANDLER
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	TIMER100HZ_HANDLER, %function
+  25              	TIMER100HZ_HANDLER:
+  26              	.LFB63:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** #include "font.h"
+  14:main.c        **** #include "color.h"
+  15:main.c        **** 
+  16:main.c        **** #define LED_WIDTH 10
+  17:main.c        **** #define LED_HIGH 10
+  18:main.c        **** #define TIMER_ISR_TC_MASK 0x8
+  19:main.c        **** 
+  20:main.c        **** struct {
+  21:main.c        ****     uint8 buffer[LED_WIDTH*LED_HIGH*3];
+  22:main.c        ****     uint8 draw_buffer[LED_WIDTH*LED_HIGH*3];
+  23:main.c        ****     volatile uint8 *buffer_ptr;
+  24:main.c        ****     volatile uint32 wait_tx :1;
+  25:main.c        **** } ws2812_struct;
+  26:main.c        **** 
+  27:main.c        **** void writePixelRGB(uint8 x, uint8 y, uint32 color);
+  28:main.c        **** void fillScreen(uint32 color);
+  29:main.c        **** void copyBuffer(uint32 *src, uint32 *dst, uint32 num);
+  30:main.c        **** void writeChar(uint8 column_display, uint8 column_char, uint8 id_char, uint32 color, uint32 backgro
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 2
+
+
+  31:main.c        **** void scrolStr(uint8 *str, uint16 len, uint32 *char_color, uint32 background_color);
+  32:main.c        **** 
+  33:main.c        **** CY_ISR_PROTO(WS2812_HANDLER);
+  34:main.c        **** CY_ISR_PROTO(TIMER100HZ_HANDLER);
+  35:main.c        **** 
+  36:main.c        **** CY_ISR(TIMER100HZ_HANDLER)
+  37:main.c        **** {
+  28              		.loc 1 37 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  38:main.c        ****     if(Timer_1_STATUS & TIMER_ISR_TC_MASK)
+  36              		.loc 1 38 0
+  37 0002 074B     		ldr	r3, .L4
+  38 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  39 0006 13F0080F 		tst	r3, #8
+  40 000a 08D0     		beq	.L1
+  39:main.c        ****     {
+  40:main.c        ****         isr_ws2812_Enable();
+  41              		.loc 1 40 0
+  42 000c FFF7FEFF 		bl	isr_ws2812_Enable
+  43              	.LVL0:
+  41:main.c        ****         ws2812_struct.wait_tx=0;
+  44              		.loc 1 41 0
+  45 0010 044A     		ldr	r2, .L4+4
+  46 0012 92F85C32 		ldrb	r3, [r2, #604]	@ zero_extendqisi2
+  47 0016 6FF30003 		bfc	r3, #0, #1
+  48 001a 82F85C32 		strb	r3, [r2, #604]
+  49              	.L1:
+  50 001e 08BD     		pop	{r3, pc}
+  51              	.L5:
+  52              		.align	2
+  53              	.L4:
+  54 0020 034F0040 		.word	1073762051
+  55 0024 00000000 		.word	ws2812_struct
+  56              		.cfi_endproc
+  57              	.LFE63:
+  58              		.size	TIMER100HZ_HANDLER, .-TIMER100HZ_HANDLER
+  59              		.section	.text.WS2812_HANDLER,"ax",%progbits
+  60              		.align	2
+  61              		.global	WS2812_HANDLER
+  62              		.thumb
+  63              		.thumb_func
+  64              		.type	WS2812_HANDLER, %function
+  65              	WS2812_HANDLER:
+  66              	.LFB64:
+  42:main.c        ****     }
+  43:main.c        ****         
+  44:main.c        **** }
+  45:main.c        **** CY_ISR(WS2812_HANDLER)
+  46:main.c        **** {
+  67              		.loc 1 46 0
+  68              		.cfi_startproc
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 3
+
+
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71 0000 10B5     		push	{r4, lr}
+  72              		.cfi_def_cfa_offset 8
+  73              		.cfi_offset 4, -8
+  74              		.cfi_offset 14, -4
+  75              	.LVL1:
+  76              	.LBB2:
+  47:main.c        ****     for(int i=0; i<ws2812_1_FIFO_LEVELS;i++)
+  77              		.loc 1 47 0
+  78 0002 0020     		movs	r0, #0
+  79 0004 1BE0     		b	.L7
+  80              	.LVL2:
+  81              	.L10:
+  48:main.c        ****     {
+  49:main.c        ****         ws2812_1_data_fifo=*ws2812_struct.buffer_ptr;
+  82              		.loc 1 49 0
+  83 0006 0F4A     		ldr	r2, .L12
+  84 0008 D2F85832 		ldr	r3, [r2, #600]
+  85 000c 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+  86 000e C9B2     		uxtb	r1, r1
+  87 0010 0D4C     		ldr	r4, .L12+4
+  88 0012 2170     		strb	r1, [r4]
+  50:main.c        ****         if(ws2812_struct.buffer_ptr==&ws2812_struct.buffer[sizeof(ws2812_struct.buffer)-1])
+  89              		.loc 1 50 0
+  90 0014 02F22B12 		addw	r2, r2, #299
+  91 0018 9342     		cmp	r3, r2
+  92 001a 0BD1     		bne	.L8
+  51:main.c        ****         {
+  52:main.c        ****             isr_ws2812_Disable();
+  93              		.loc 1 52 0
+  94 001c FFF7FEFF 		bl	isr_ws2812_Disable
+  95              	.LVL3:
+  53:main.c        ****             ws2812_struct.wait_tx=1;
+  96              		.loc 1 53 0
+  97 0020 084B     		ldr	r3, .L12
+  98 0022 93F85C22 		ldrb	r2, [r3, #604]	@ zero_extendqisi2
+  99 0026 42F00102 		orr	r2, r2, #1
+ 100 002a 83F85C22 		strb	r2, [r3, #604]
+  54:main.c        ****             ws2812_struct.buffer_ptr=ws2812_struct.buffer;
+ 101              		.loc 1 54 0
+ 102 002e C3F85832 		str	r3, [r3, #600]
+  55:main.c        ****             break;
+ 103              		.loc 1 55 0
+ 104 0032 10BD     		pop	{r4, pc}
+ 105              	.LVL4:
+ 106              	.L8:
+  56:main.c        ****         }
+  57:main.c        ****         else
+  58:main.c        ****         {
+  59:main.c        ****             ws2812_struct.buffer_ptr++;
+ 107              		.loc 1 59 0 discriminator 2
+ 108 0034 0133     		adds	r3, r3, #1
+ 109 0036 034A     		ldr	r2, .L12
+ 110 0038 C2F85832 		str	r3, [r2, #600]
+  47:main.c        ****     {
+ 111              		.loc 1 47 0 discriminator 2
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 4
+
+
+ 112 003c 0130     		adds	r0, r0, #1
+ 113              	.LVL5:
+ 114              	.L7:
+  47:main.c        ****     {
+ 115              		.loc 1 47 0 is_stmt 0 discriminator 1
+ 116 003e 0328     		cmp	r0, #3
+ 117 0040 E1DD     		ble	.L10
+ 118 0042 10BD     		pop	{r4, pc}
+ 119              	.L13:
+ 120              		.align	2
+ 121              	.L12:
+ 122 0044 00000000 		.word	ws2812_struct
+ 123 0048 49650040 		.word	1073767753
+ 124              	.LBE2:
+ 125              		.cfi_endproc
+ 126              	.LFE64:
+ 127              		.size	WS2812_HANDLER, .-WS2812_HANDLER
+ 128              		.section	.text.copyBuffer,"ax",%progbits
+ 129              		.align	2
+ 130              		.global	copyBuffer
+ 131              		.thumb
+ 132              		.thumb_func
+ 133              		.type	copyBuffer, %function
+ 134              	copyBuffer:
+ 135              	.LFB67:
+  60:main.c        ****         }
+  61:main.c        ****     }
+  62:main.c        **** }
+  63:main.c        **** 
+  64:main.c        **** int main(void)
+  65:main.c        **** {
+  66:main.c        ****     ws2812_struct.buffer_ptr=ws2812_struct.buffer;
+  67:main.c        ****     fillScreen(0);
+  68:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  69:main.c        ****     Timer_1_Start();
+  70:main.c        ****     ws2812_1_Start();
+  71:main.c        ****     isr_ws2812_StartEx(WS2812_HANDLER);
+  72:main.c        ****     isr_timer_StartEx(TIMER100HZ_HANDLER);
+  73:main.c        ****     
+  74:main.c        ****     uint16 delay=0;
+  75:main.c        ****     for(;;)
+  76:main.c        ****     {
+  77:main.c        ****         if((delay++)==20)
+  78:main.c        ****         {
+  79:main.c        ****             delay=0;
+  80:main.c        ****             scrolStr(text, sizeof(text), color , BACKGROUND);
+  81:main.c        ****         }
+  82:main.c        ****         while(ws2812_struct.wait_tx==0);
+  83:main.c        ****         ws2812_struct.wait_tx=0;
+  84:main.c        ****         copyBuffer((uint32*)ws2812_struct.draw_buffer,(uint32*)ws2812_struct.buffer,sizeof(ws2812_s
+  85:main.c        ****     }
+  86:main.c        **** }
+  87:main.c        **** void scrolStr(uint8 *str, uint16 len, uint32 *char_color, uint32 background_color)
+  88:main.c        **** {
+  89:main.c        ****     static uint16 begin_position=LED_WIDTH-1;
+  90:main.c        ****     static uint16 index_position=0;
+  91:main.c        ****     static uint16 point_position=0;
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 5
+
+
+  92:main.c        ****     for(int16 i=0;i<((LED_WIDTH-begin_position-1)/FONT_WIDTH)+1;i++)
+  93:main.c        ****     {
+  94:main.c        ****         uint8 idx_char=index_position+i;
+  95:main.c        ****         if(idx_char==len)
+  96:main.c        ****             idx_char=0;
+  97:main.c        ****         writeChar(i==0 ? begin_position : begin_position+FONT_WIDTH-point_position+FONT_WIDTH*(i-1)
+  98:main.c        ****             i==0 ? point_position : 0,\
+  99:main.c        ****             str[idx_char],\
+ 100:main.c        ****             char_color[idx_char],\
+ 101:main.c        ****             background_color);
+ 102:main.c        ****     }
+ 103:main.c        ****     if(begin_position!=0)
+ 104:main.c        ****         begin_position--;
+ 105:main.c        ****     else
+ 106:main.c        ****     {
+ 107:main.c        ****         if(point_position==(FONT_WIDTH-1))
+ 108:main.c        ****         {
+ 109:main.c        ****             point_position=0;
+ 110:main.c        ****             if(index_position==len-1)
+ 111:main.c        ****                 index_position=0;
+ 112:main.c        ****             else
+ 113:main.c        ****                 index_position++;
+ 114:main.c        ****         }
+ 115:main.c        ****         else
+ 116:main.c        ****             point_position++;
+ 117:main.c        ****     }
+ 118:main.c        **** }
+ 119:main.c        **** void copyBuffer(uint32 *src, uint32 *dst, uint32 num)
+ 120:main.c        **** {
+ 136              		.loc 1 120 0 is_stmt 1
+ 137              		.cfi_startproc
+ 138              		@ args = 0, pretend = 0, frame = 0
+ 139              		@ frame_needed = 0, uses_anonymous_args = 0
+ 140              		@ link register save eliminated.
+ 141              	.LVL6:
+ 142 0000 10B4     		push	{r4}
+ 143              		.cfi_def_cfa_offset 4
+ 144              		.cfi_offset 4, -4
+ 145              	.LVL7:
+ 146              	.LBB3:
+ 121:main.c        ****     for(uint32 i=0;i<num;i++)
+ 147              		.loc 1 121 0
+ 148 0002 0023     		movs	r3, #0
+ 149 0004 04E0     		b	.L15
+ 150              	.LVL8:
+ 151              	.L16:
+ 122:main.c        ****         *(dst++)=*(src++);
+ 152              		.loc 1 122 0 discriminator 3
+ 153 0006 0468     		ldr	r4, [r0]
+ 154 0008 0C60     		str	r4, [r1]
+ 121:main.c        ****     for(uint32 i=0;i<num;i++)
+ 155              		.loc 1 121 0 discriminator 3
+ 156 000a 0133     		adds	r3, r3, #1
+ 157              	.LVL9:
+ 158              		.loc 1 122 0 discriminator 3
+ 159 000c 0431     		adds	r1, r1, #4
+ 160              	.LVL10:
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 6
+
+
+ 161 000e 0430     		adds	r0, r0, #4
+ 162              	.LVL11:
+ 163              	.L15:
+ 121:main.c        ****     for(uint32 i=0;i<num;i++)
+ 164              		.loc 1 121 0 discriminator 1
+ 165 0010 9342     		cmp	r3, r2
+ 166 0012 F8D3     		bcc	.L16
+ 167              	.LBE3:
+ 123:main.c        **** }
+ 168              		.loc 1 123 0
+ 169 0014 10BC     		pop	{r4}
+ 170              		.cfi_restore 4
+ 171              		.cfi_def_cfa_offset 0
+ 172 0016 7047     		bx	lr
+ 173              		.cfi_endproc
+ 174              	.LFE67:
+ 175              		.size	copyBuffer, .-copyBuffer
+ 176              		.section	.text.writePixelRGB,"ax",%progbits
+ 177              		.align	2
+ 178              		.global	writePixelRGB
+ 179              		.thumb
+ 180              		.thumb_func
+ 181              		.type	writePixelRGB, %function
+ 182              	writePixelRGB:
+ 183              	.LFB69:
+ 124:main.c        **** void writeChar(uint8 column_display, uint8 column_char, uint8 id_char, uint32 char_color, uint32 ba
+ 125:main.c        **** {
+ 126:main.c        ****     uint8 shift;
+ 127:main.c        ****     for(int8 j=LED_HIGH-1;j>=0;j--)
+ 128:main.c        ****     {
+ 129:main.c        ****         shift=0x80>>column_char;
+ 130:main.c        ****         for(uint8 i=column_display;i<(column_display+FONT_WIDTH) && i<LED_WIDTH;i++)
+ 131:main.c        ****         {
+ 132:main.c        ****             if(font[id_char][j]&shift)
+ 133:main.c        ****                 writePixelRGB(i,FONT_HIGH-j-1,char_color);
+ 134:main.c        ****             else
+ 135:main.c        ****                 writePixelRGB(i,FONT_HIGH-j-1,background_color);
+ 136:main.c        ****             shift >>=1;
+ 137:main.c        ****         }
+ 138:main.c        ****     }
+ 139:main.c        **** }
+ 140:main.c        **** void writePixelRGB(uint8 x, uint8 y, uint32 color)
+ 141:main.c        **** {
+ 184              		.loc 1 141 0
+ 185              		.cfi_startproc
+ 186              		@ args = 0, pretend = 0, frame = 0
+ 187              		@ frame_needed = 0, uses_anonymous_args = 0
+ 188              		@ link register save eliminated.
+ 189              	.LVL12:
+ 190 0000 30B4     		push	{r4, r5}
+ 191              		.cfi_def_cfa_offset 8
+ 192              		.cfi_offset 4, -8
+ 193              		.cfi_offset 5, -4
+ 142:main.c        ****     uint16 point=(LED_HIGH*(LED_WIDTH-x-1)+y)*3;
+ 194              		.loc 1 142 0
+ 195 0002 C0F10900 		rsb	r0, r0, #9
+ 196              	.LVL13:
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 7
+
+
+ 197 0006 00EB8000 		add	r0, r0, r0, lsl #2
+ 198 000a 4300     		lsls	r3, r0, #1
+ 199 000c 1944     		add	r1, r1, r3
+ 200              	.LVL14:
+ 201 000e 01EB4101 		add	r1, r1, r1, lsl #1
+ 202 0012 89B2     		uxth	r1, r1
+ 203              	.LVL15:
+ 143:main.c        ****     ws2812_struct.draw_buffer[point++]=(uint8)(color>>16);
+ 204              		.loc 1 143 0
+ 205 0014 4B1C     		adds	r3, r1, #1
+ 206 0016 9BB2     		uxth	r3, r3
+ 207              	.LVL16:
+ 208 0018 C2F30745 		ubfx	r5, r2, #16, #8
+ 209 001c 0748     		ldr	r0, .L20
+ 210 001e 4418     		adds	r4, r0, r1
+ 211 0020 84F82C51 		strb	r5, [r4, #300]
+ 144:main.c        ****     ws2812_struct.draw_buffer[point++]=(uint8)(color>>8);
+ 212              		.loc 1 144 0
+ 213 0024 0231     		adds	r1, r1, #2
+ 214 0026 89B2     		uxth	r1, r1
+ 215              	.LVL17:
+ 216 0028 C2F30724 		ubfx	r4, r2, #8, #8
+ 217 002c 0344     		add	r3, r3, r0
+ 218 002e 83F82C41 		strb	r4, [r3, #300]
+ 145:main.c        ****     ws2812_struct.draw_buffer[point]=(uint8)color;
+ 219              		.loc 1 145 0
+ 220 0032 0144     		add	r1, r1, r0
+ 221              	.LVL18:
+ 222 0034 81F82C21 		strb	r2, [r1, #300]
+ 146:main.c        **** }
+ 223              		.loc 1 146 0
+ 224 0038 30BC     		pop	{r4, r5}
+ 225              		.cfi_restore 5
+ 226              		.cfi_restore 4
+ 227              		.cfi_def_cfa_offset 0
+ 228 003a 7047     		bx	lr
+ 229              	.L21:
+ 230              		.align	2
+ 231              	.L20:
+ 232 003c 00000000 		.word	ws2812_struct
+ 233              		.cfi_endproc
+ 234              	.LFE69:
+ 235              		.size	writePixelRGB, .-writePixelRGB
+ 236              		.section	.text.writeChar,"ax",%progbits
+ 237              		.align	2
+ 238              		.global	writeChar
+ 239              		.thumb
+ 240              		.thumb_func
+ 241              		.type	writeChar, %function
+ 242              	writeChar:
+ 243              	.LFB68:
+ 125:main.c        ****     uint8 shift;
+ 244              		.loc 1 125 0
+ 245              		.cfi_startproc
+ 246              		@ args = 4, pretend = 0, frame = 0
+ 247              		@ frame_needed = 0, uses_anonymous_args = 0
+ 248              	.LVL19:
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 8
+
+
+ 249 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 250              		.cfi_def_cfa_offset 40
+ 251              		.cfi_offset 3, -40
+ 252              		.cfi_offset 4, -36
+ 253              		.cfi_offset 5, -32
+ 254              		.cfi_offset 6, -28
+ 255              		.cfi_offset 7, -24
+ 256              		.cfi_offset 8, -20
+ 257              		.cfi_offset 9, -16
+ 258              		.cfi_offset 10, -12
+ 259              		.cfi_offset 11, -8
+ 260              		.cfi_offset 14, -4
+ 261 0004 8046     		mov	r8, r0
+ 262 0006 8B46     		mov	fp, r1
+ 263 0008 1746     		mov	r7, r2
+ 264 000a 9A46     		mov	r10, r3
+ 265 000c DDF82890 		ldr	r9, [sp, #40]
+ 266              	.LVL20:
+ 267              	.LBB4:
+ 127:main.c        ****     {
+ 268              		.loc 1 127 0
+ 269 0010 0926     		movs	r6, #9
+ 270 0012 27E0     		b	.L23
+ 271              	.LVL21:
+ 272              	.L29:
+ 129:main.c        ****         for(uint8 i=column_display;i<(column_display+FONT_WIDTH) && i<LED_WIDTH;i++)
+ 273              		.loc 1 129 0
+ 274 0014 8025     		movs	r5, #128
+ 275 0016 45FA0BF5 		asr	r5, r5, fp
+ 276 001a EDB2     		uxtb	r5, r5
+ 277              	.LVL22:
+ 278              	.LBB5:
+ 130:main.c        ****         {
+ 279              		.loc 1 130 0
+ 280 001c 4446     		mov	r4, r8
+ 281 001e 19E0     		b	.L24
+ 282              	.LVL23:
+ 283              	.L28:
+ 132:main.c        ****                 writePixelRGB(i,FONT_HIGH-j-1,char_color);
+ 284              		.loc 1 132 0
+ 285 0020 07EB8702 		add	r2, r7, r7, lsl #2
+ 286 0024 5300     		lsls	r3, r2, #1
+ 287 0026 114A     		ldr	r2, .L31
+ 288 0028 1344     		add	r3, r3, r2
+ 289 002a 9B5D     		ldrb	r3, [r3, r6]	@ zero_extendqisi2
+ 290 002c 1D42     		tst	r5, r3
+ 291 002e 07D0     		beq	.L25
+ 133:main.c        ****             else
+ 292              		.loc 1 133 0
+ 293 0030 C6F10901 		rsb	r1, r6, #9
+ 294 0034 5246     		mov	r2, r10
+ 295 0036 C9B2     		uxtb	r1, r1
+ 296 0038 2046     		mov	r0, r4
+ 297 003a FFF7FEFF 		bl	writePixelRGB
+ 298              	.LVL24:
+ 299 003e 06E0     		b	.L26
+ 300              	.L25:
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 9
+
+
+ 135:main.c        ****             shift >>=1;
+ 301              		.loc 1 135 0
+ 302 0040 C6F10901 		rsb	r1, r6, #9
+ 303 0044 4A46     		mov	r2, r9
+ 304 0046 C9B2     		uxtb	r1, r1
+ 305 0048 2046     		mov	r0, r4
+ 306 004a FFF7FEFF 		bl	writePixelRGB
+ 307              	.LVL25:
+ 308              	.L26:
+ 136:main.c        ****         }
+ 309              		.loc 1 136 0 discriminator 2
+ 310 004e 6D08     		lsrs	r5, r5, #1
+ 311              	.LVL26:
+ 130:main.c        ****         {
+ 312              		.loc 1 130 0 discriminator 2
+ 313 0050 0134     		adds	r4, r4, #1
+ 314              	.LVL27:
+ 315 0052 E4B2     		uxtb	r4, r4
+ 316              	.LVL28:
+ 317              	.L24:
+ 130:main.c        ****         {
+ 318              		.loc 1 130 0 is_stmt 0 discriminator 1
+ 319 0054 08F10803 		add	r3, r8, #8
+ 320 0058 9C42     		cmp	r4, r3
+ 321 005a 01DA     		bge	.L27
+ 130:main.c        ****         {
+ 322              		.loc 1 130 0 discriminator 3
+ 323 005c 092C     		cmp	r4, #9
+ 324 005e DFD9     		bls	.L28
+ 325              	.L27:
+ 326              	.LBE5:
+ 127:main.c        ****     {
+ 327              		.loc 1 127 0 is_stmt 1 discriminator 2
+ 328 0060 013E     		subs	r6, r6, #1
+ 329              	.LVL29:
+ 330 0062 76B2     		sxtb	r6, r6
+ 331              	.LVL30:
+ 332              	.L23:
+ 127:main.c        ****     {
+ 333              		.loc 1 127 0 is_stmt 0 discriminator 1
+ 334 0064 002E     		cmp	r6, #0
+ 335 0066 D5DA     		bge	.L29
+ 336              	.LBE4:
+ 139:main.c        **** void writePixelRGB(uint8 x, uint8 y, uint32 color)
+ 337              		.loc 1 139 0 is_stmt 1
+ 338 0068 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 339              	.LVL31:
+ 340              	.L32:
+ 341              		.align	2
+ 342              	.L31:
+ 343 006c 00000000 		.word	.LANCHOR0
+ 344              		.cfi_endproc
+ 345              	.LFE68:
+ 346              		.size	writeChar, .-writeChar
+ 347              		.section	.text.scrolStr,"ax",%progbits
+ 348              		.align	2
+ 349              		.global	scrolStr
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 10
+
+
+ 350              		.thumb
+ 351              		.thumb_func
+ 352              		.type	scrolStr, %function
+ 353              	scrolStr:
+ 354              	.LFB66:
+  88:main.c        ****     static uint16 begin_position=LED_WIDTH-1;
+ 355              		.loc 1 88 0
+ 356              		.cfi_startproc
+ 357              		@ args = 0, pretend = 0, frame = 0
+ 358              		@ frame_needed = 0, uses_anonymous_args = 0
+ 359              	.LVL32:
+ 360 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 361              		.cfi_def_cfa_offset 24
+ 362              		.cfi_offset 4, -24
+ 363              		.cfi_offset 5, -20
+ 364              		.cfi_offset 6, -16
+ 365              		.cfi_offset 7, -12
+ 366              		.cfi_offset 8, -8
+ 367              		.cfi_offset 14, -4
+ 368 0004 82B0     		sub	sp, sp, #8
+ 369              		.cfi_def_cfa_offset 32
+ 370 0006 8046     		mov	r8, r0
+ 371 0008 0D46     		mov	r5, r1
+ 372 000a 1746     		mov	r7, r2
+ 373 000c 1E46     		mov	r6, r3
+ 374              	.LVL33:
+ 375              	.LBB6:
+  92:main.c        ****     {
+ 376              		.loc 1 92 0
+ 377 000e 0024     		movs	r4, #0
+ 378 0010 20E0     		b	.L34
+ 379              	.LVL34:
+ 380              	.L40:
+ 381              	.LBB7:
+  94:main.c        ****         if(idx_char==len)
+ 382              		.loc 1 94 0
+ 383 0012 244B     		ldr	r3, .L48
+ 384 0014 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 385 0016 2244     		add	r2, r2, r4
+ 386 0018 D2B2     		uxtb	r2, r2
+ 387              	.LVL35:
+  95:main.c        ****             idx_char=0;
+ 388              		.loc 1 95 0
+ 389 001a 93B2     		uxth	r3, r2
+ 390 001c AB42     		cmp	r3, r5
+ 391 001e 00D1     		bne	.L35
+  96:main.c        ****         writeChar(i==0 ? begin_position : begin_position+FONT_WIDTH-point_position+FONT_WIDTH*(i-1)
+ 392              		.loc 1 96 0
+ 393 0020 0022     		movs	r2, #0
+ 394              	.LVL36:
+ 395              	.L35:
+  97:main.c        ****             i==0 ? point_position : 0,\
+ 396              		.loc 1 97 0
+ 397 0022 0CB9     		cbnz	r4, .L36
+  97:main.c        ****             i==0 ? point_position : 0,\
+ 398              		.loc 1 97 0 is_stmt 0 discriminator 1
+ 399 0024 C0B2     		uxtb	r0, r0
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 11
+
+
+ 400 0026 07E0     		b	.L37
+ 401              	.L36:
+  97:main.c        ****             i==0 ? point_position : 0,\
+ 402              		.loc 1 97 0 discriminator 2
+ 403 0028 0139     		subs	r1, r1, #1
+ 404 002a 1E4B     		ldr	r3, .L48
+ 405 002c 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 406 002e C01A     		subs	r0, r0, r3
+ 407 0030 00EBC100 		add	r0, r0, r1, lsl #3
+ 408 0034 0830     		adds	r0, r0, #8
+ 409 0036 C0B2     		uxtb	r0, r0
+ 410              	.L37:
+  97:main.c        ****             i==0 ? point_position : 0,\
+ 411              		.loc 1 97 0 discriminator 4
+ 412 0038 14B9     		cbnz	r4, .L46
+  97:main.c        ****             i==0 ? point_position : 0,\
+ 413              		.loc 1 97 0 discriminator 5
+ 414 003a 1A4B     		ldr	r3, .L48
+ 415 003c 9978     		ldrb	r1, [r3, #2]	@ zero_extendqisi2
+ 416 003e 00E0     		b	.L38
+ 417              	.L46:
+  97:main.c        ****             i==0 ? point_position : 0,\
+ 418              		.loc 1 97 0
+ 419 0040 0021     		movs	r1, #0
+ 420              	.L38:
+  97:main.c        ****             i==0 ? point_position : 0,\
+ 421              		.loc 1 97 0 discriminator 2
+ 422 0042 57F82230 		ldr	r3, [r7, r2, lsl #2]
+ 423 0046 18F80220 		ldrb	r2, [r8, r2]	@ zero_extendqisi2
+ 424              	.LVL37:
+ 425 004a 0096     		str	r6, [sp]
+ 426 004c FFF7FEFF 		bl	writeChar
+ 427              	.LVL38:
+ 428              	.LBE7:
+  92:main.c        ****     {
+ 429              		.loc 1 92 0 is_stmt 1 discriminator 2
+ 430 0050 0134     		adds	r4, r4, #1
+ 431              	.LVL39:
+ 432 0052 24B2     		sxth	r4, r4
+ 433              	.LVL40:
+ 434              	.L34:
+  92:main.c        ****     {
+ 435              		.loc 1 92 0 is_stmt 0 discriminator 1
+ 436 0054 2146     		mov	r1, r4
+ 437 0056 144B     		ldr	r3, .L48+4
+ 438 0058 1888     		ldrh	r0, [r3]
+ 439 005a D0F10903 		rsbs	r3, r0, #9
+ 440 005e 00D5     		bpl	.L39
+ 441 0060 0733     		adds	r3, r3, #7
+ 442              	.L39:
+ 443 0062 DB10     		asrs	r3, r3, #3
+ 444 0064 0133     		adds	r3, r3, #1
+ 445 0066 9942     		cmp	r1, r3
+ 446 0068 D3DB     		blt	.L40
+ 447              	.LBE6:
+ 103:main.c        ****         begin_position--;
+ 448              		.loc 1 103 0 is_stmt 1
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 12
+
+
+ 449 006a 18B1     		cbz	r0, .L41
+ 104:main.c        ****     else
+ 450              		.loc 1 104 0
+ 451 006c 0138     		subs	r0, r0, #1
+ 452 006e 0E4B     		ldr	r3, .L48+4
+ 453 0070 1880     		strh	r0, [r3]	@ movhi
+ 454 0072 14E0     		b	.L33
+ 455              	.L41:
+ 107:main.c        ****         {
+ 456              		.loc 1 107 0
+ 457 0074 0B4B     		ldr	r3, .L48
+ 458 0076 5B88     		ldrh	r3, [r3, #2]
+ 459 0078 072B     		cmp	r3, #7
+ 460 007a 0DD1     		bne	.L43
+ 109:main.c        ****             if(index_position==len-1)
+ 461              		.loc 1 109 0
+ 462 007c 094B     		ldr	r3, .L48
+ 463 007e 0022     		movs	r2, #0
+ 464 0080 5A80     		strh	r2, [r3, #2]	@ movhi
+ 110:main.c        ****                 index_position=0;
+ 465              		.loc 1 110 0
+ 466 0082 1B88     		ldrh	r3, [r3]
+ 467 0084 013D     		subs	r5, r5, #1
+ 468 0086 AB42     		cmp	r3, r5
+ 469 0088 02D1     		bne	.L44
+ 111:main.c        ****             else
+ 470              		.loc 1 111 0
+ 471 008a 064B     		ldr	r3, .L48
+ 472 008c 1A80     		strh	r2, [r3]	@ movhi
+ 473 008e 06E0     		b	.L33
+ 474              	.L44:
+ 113:main.c        ****         }
+ 475              		.loc 1 113 0
+ 476 0090 0133     		adds	r3, r3, #1
+ 477 0092 044A     		ldr	r2, .L48
+ 478 0094 1380     		strh	r3, [r2]	@ movhi
+ 479 0096 02E0     		b	.L33
+ 480              	.L43:
+ 116:main.c        ****     }
+ 481              		.loc 1 116 0
+ 482 0098 0133     		adds	r3, r3, #1
+ 483 009a 024A     		ldr	r2, .L48
+ 484 009c 5380     		strh	r3, [r2, #2]	@ movhi
+ 485              	.L33:
+ 118:main.c        **** void copyBuffer(uint32 *src, uint32 *dst, uint32 num)
+ 486              		.loc 1 118 0
+ 487 009e 02B0     		add	sp, sp, #8
+ 488              		.cfi_def_cfa_offset 24
+ 489              		@ sp needed
+ 490 00a0 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 491              	.LVL41:
+ 492              	.L49:
+ 493              		.align	2
+ 494              	.L48:
+ 495 00a4 00000000 		.word	.LANCHOR1
+ 496 00a8 00000000 		.word	.LANCHOR2
+ 497              		.cfi_endproc
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 13
+
+
+ 498              	.LFE66:
+ 499              		.size	scrolStr, .-scrolStr
+ 500              		.section	.text.fillScreen,"ax",%progbits
+ 501              		.align	2
+ 502              		.global	fillScreen
+ 503              		.thumb
+ 504              		.thumb_func
+ 505              		.type	fillScreen, %function
+ 506              	fillScreen:
+ 507              	.LFB70:
+ 147:main.c        **** void fillScreen(uint32 color)
+ 148:main.c        **** {
+ 508              		.loc 1 148 0
+ 509              		.cfi_startproc
+ 510              		@ args = 0, pretend = 0, frame = 0
+ 511              		@ frame_needed = 0, uses_anonymous_args = 0
+ 512              		@ link register save eliminated.
+ 513              	.LVL42:
+ 514 0000 10B4     		push	{r4}
+ 515              		.cfi_def_cfa_offset 4
+ 516              		.cfi_offset 4, -4
+ 517              	.LVL43:
+ 518              	.LBB8:
+ 149:main.c        ****     for(uint16 i=0;i<LED_WIDTH*LED_HIGH*3;i+=3)
+ 519              		.loc 1 149 0
+ 520 0002 0023     		movs	r3, #0
+ 521 0004 11E0     		b	.L51
+ 522              	.LVL44:
+ 523              	.L52:
+ 150:main.c        ****     {
+ 151:main.c        ****         ws2812_struct.draw_buffer[i]=(uint8)(color>>16);
+ 524              		.loc 1 151 0 discriminator 3
+ 525 0006 C0F30742 		ubfx	r2, r0, #16, #8
+ 526 000a 0A49     		ldr	r1, .L54
+ 527 000c CC18     		adds	r4, r1, r3
+ 528 000e 84F82C21 		strb	r2, [r4, #300]
+ 152:main.c        ****         ws2812_struct.draw_buffer[i+1]=(uint8)(color>>8);
+ 529              		.loc 1 152 0 discriminator 3
+ 530 0012 5A1C     		adds	r2, r3, #1
+ 531 0014 C0F30724 		ubfx	r4, r0, #8, #8
+ 532 0018 0A44     		add	r2, r2, r1
+ 533 001a 82F82C41 		strb	r4, [r2, #300]
+ 153:main.c        ****         ws2812_struct.draw_buffer[i+2]=(uint8)color;
+ 534              		.loc 1 153 0 discriminator 3
+ 535 001e 9A1C     		adds	r2, r3, #2
+ 536 0020 0A44     		add	r2, r2, r1
+ 537 0022 82F82C01 		strb	r0, [r2, #300]
+ 149:main.c        ****     {
+ 538              		.loc 1 149 0 discriminator 3
+ 539 0026 0333     		adds	r3, r3, #3
+ 540              	.LVL45:
+ 541 0028 9BB2     		uxth	r3, r3
+ 542              	.LVL46:
+ 543              	.L51:
+ 149:main.c        ****     {
+ 544              		.loc 1 149 0 is_stmt 0 discriminator 1
+ 545 002a B3F5967F 		cmp	r3, #300
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 14
+
+
+ 546 002e EAD3     		bcc	.L52
+ 547              	.LBE8:
+ 154:main.c        ****     }
+ 155:main.c        **** }
+ 548              		.loc 1 155 0 is_stmt 1
+ 549 0030 10BC     		pop	{r4}
+ 550              		.cfi_restore 4
+ 551              		.cfi_def_cfa_offset 0
+ 552 0032 7047     		bx	lr
+ 553              	.L55:
+ 554              		.align	2
+ 555              	.L54:
+ 556 0034 00000000 		.word	ws2812_struct
+ 557              		.cfi_endproc
+ 558              	.LFE70:
+ 559              		.size	fillScreen, .-fillScreen
+ 560              		.section	.text.main,"ax",%progbits
+ 561              		.align	2
+ 562              		.global	main
+ 563              		.thumb
+ 564              		.thumb_func
+ 565              		.type	main, %function
+ 566              	main:
+ 567              	.LFB65:
+  65:main.c        ****     ws2812_struct.buffer_ptr=ws2812_struct.buffer;
+ 568              		.loc 1 65 0
+ 569              		.cfi_startproc
+ 570              		@ args = 0, pretend = 0, frame = 0
+ 571              		@ frame_needed = 0, uses_anonymous_args = 0
+ 572 0000 10B5     		push	{r4, lr}
+ 573              		.cfi_def_cfa_offset 8
+ 574              		.cfi_offset 4, -8
+ 575              		.cfi_offset 14, -4
+  66:main.c        ****     fillScreen(0);
+ 576              		.loc 1 66 0
+ 577 0002 1A4B     		ldr	r3, .L61
+ 578 0004 C3F85832 		str	r3, [r3, #600]
+  67:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 579              		.loc 1 67 0
+ 580 0008 0020     		movs	r0, #0
+ 581 000a FFF7FEFF 		bl	fillScreen
+ 582              	.LVL47:
+  68:main.c        ****     Timer_1_Start();
+ 583              		.loc 1 68 0
+ 584              		.syntax unified
+ 585              	@ 68 "main.c" 1
+ 586 000e 62B6     		CPSIE   i
+ 587              	@ 0 "" 2
+  69:main.c        ****     ws2812_1_Start();
+ 588              		.loc 1 69 0
+ 589              		.thumb
+ 590              		.syntax unified
+ 591 0010 FFF7FEFF 		bl	Timer_1_Start
+ 592              	.LVL48:
+  70:main.c        ****     isr_ws2812_StartEx(WS2812_HANDLER);
+ 593              		.loc 1 70 0
+ 594 0014 FFF7FEFF 		bl	ws2812_1_Start
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 15
+
+
+ 595              	.LVL49:
+  71:main.c        ****     isr_timer_StartEx(TIMER100HZ_HANDLER);
+ 596              		.loc 1 71 0
+ 597 0018 1548     		ldr	r0, .L61+4
+ 598 001a FFF7FEFF 		bl	isr_ws2812_StartEx
+ 599              	.LVL50:
+  72:main.c        ****     
+ 600              		.loc 1 72 0
+ 601 001e 1548     		ldr	r0, .L61+8
+ 602 0020 FFF7FEFF 		bl	isr_timer_StartEx
+ 603              	.LVL51:
+  74:main.c        ****     for(;;)
+ 604              		.loc 1 74 0
+ 605 0024 0024     		movs	r4, #0
+ 606              	.LVL52:
+ 607              	.L59:
+  77:main.c        ****         {
+ 608              		.loc 1 77 0
+ 609 0026 631C     		adds	r3, r4, #1
+ 610 0028 9BB2     		uxth	r3, r3
+ 611              	.LVL53:
+ 612 002a 142C     		cmp	r4, #20
+ 613 002c 08D1     		bne	.L57
+ 614              	.LVL54:
+  80:main.c        ****         }
+ 615              		.loc 1 80 0
+ 616 002e 1248     		ldr	r0, .L61+12
+ 617 0030 4FF40023 		mov	r3, #524288
+ 618 0034 021D     		adds	r2, r0, #4
+ 619 0036 0A21     		movs	r1, #10
+ 620 0038 2C30     		adds	r0, r0, #44
+ 621 003a FFF7FEFF 		bl	scrolStr
+ 622              	.LVL55:
+  79:main.c        ****             scrolStr(text, sizeof(text), color , BACKGROUND);
+ 623              		.loc 1 79 0
+ 624 003e 0023     		movs	r3, #0
+ 625              	.LVL56:
+ 626              	.L57:
+  79:main.c        ****             scrolStr(text, sizeof(text), color , BACKGROUND);
+ 627              		.loc 1 79 0 is_stmt 0 discriminator 1
+ 628 0040 1C46     		mov	r4, r3
+ 629              	.L58:
+ 630              	.LVL57:
+  82:main.c        ****         ws2812_struct.wait_tx=0;
+ 631              		.loc 1 82 0 is_stmt 1 discriminator 1
+ 632 0042 0A4B     		ldr	r3, .L61
+ 633 0044 D3F85C32 		ldr	r3, [r3, #604]
+ 634 0048 13F0010F 		tst	r3, #1
+ 635 004c F9D0     		beq	.L58
+  83:main.c        ****         copyBuffer((uint32*)ws2812_struct.draw_buffer,(uint32*)ws2812_struct.buffer,sizeof(ws2812_s
+ 636              		.loc 1 83 0
+ 637 004e 0748     		ldr	r0, .L61
+ 638 0050 90F85C32 		ldrb	r3, [r0, #604]	@ zero_extendqisi2
+ 639 0054 6FF30003 		bfc	r3, #0, #1
+ 640 0058 80F85C32 		strb	r3, [r0, #604]
+  84:main.c        ****     }
+ 641              		.loc 1 84 0
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 16
+
+
+ 642 005c 4B22     		movs	r2, #75
+ 643 005e 0146     		mov	r1, r0
+ 644 0060 00F59670 		add	r0, r0, #300
+ 645 0064 FFF7FEFF 		bl	copyBuffer
+ 646              	.LVL58:
+  85:main.c        **** }
+ 647              		.loc 1 85 0
+ 648 0068 DDE7     		b	.L59
+ 649              	.L62:
+ 650 006a 00BF     		.align	2
+ 651              	.L61:
+ 652 006c 00000000 		.word	ws2812_struct
+ 653 0070 00000000 		.word	WS2812_HANDLER
+ 654 0074 00000000 		.word	TIMER100HZ_HANDLER
+ 655 0078 00000000 		.word	.LANCHOR2
+ 656              		.cfi_endproc
+ 657              	.LFE65:
+ 658              		.size	main, .-main
+ 659              		.comm	ws2812_struct,608,4
+ 660              		.global	font
+ 661              		.global	color
+ 662              		.global	text
+ 663              		.section	.rodata
+ 664              		.align	2
+ 665              		.set	.LANCHOR0,. + 0
+ 666              		.type	font, %object
+ 667              		.size	font, 90
+ 668              	font:
+ 669 0000 66       		.byte	102
+ 670 0001 66       		.byte	102
+ 671 0002 66       		.byte	102
+ 672 0003 66       		.byte	102
+ 673 0004 7E       		.byte	126
+ 674 0005 66       		.byte	102
+ 675 0006 66       		.byte	102
+ 676 0007 66       		.byte	102
+ 677 0008 66       		.byte	102
+ 678 0009 00       		.byte	0
+ 679 000a 00       		.byte	0
+ 680 000b 00       		.byte	0
+ 681 000c 3C       		.byte	60
+ 682 000d 06       		.byte	6
+ 683 000e 06       		.byte	6
+ 684 000f 3E       		.byte	62
+ 685 0010 66       		.byte	102
+ 686 0011 66       		.byte	102
+ 687 0012 3E       		.byte	62
+ 688 0013 00       		.byte	0
+ 689 0014 60       		.byte	96
+ 690 0015 60       		.byte	96
+ 691 0016 7C       		.byte	124
+ 692 0017 66       		.byte	102
+ 693 0018 66       		.byte	102
+ 694 0019 66       		.byte	102
+ 695 001a 66       		.byte	102
+ 696 001b 66       		.byte	102
+ 697 001c 7C       		.byte	124
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 17
+
+
+ 698 001d 00       		.byte	0
+ 699 001e 00       		.byte	0
+ 700 001f 00       		.byte	0
+ 701 0020 3C       		.byte	60
+ 702 0021 66       		.byte	102
+ 703 0022 66       		.byte	102
+ 704 0023 7E       		.byte	126
+ 705 0024 60       		.byte	96
+ 706 0025 60       		.byte	96
+ 707 0026 3C       		.byte	60
+ 708 0027 00       		.byte	0
+ 709 0028 78       		.byte	120
+ 710 0029 18       		.byte	24
+ 711 002a 18       		.byte	24
+ 712 002b 18       		.byte	24
+ 713 002c 18       		.byte	24
+ 714 002d 18       		.byte	24
+ 715 002e 18       		.byte	24
+ 716 002f 18       		.byte	24
+ 717 0030 7E       		.byte	126
+ 718 0031 00       		.byte	0
+ 719 0032 00       		.byte	0
+ 720 0033 00       		.byte	0
+ 721 0034 3C       		.byte	60
+ 722 0035 66       		.byte	102
+ 723 0036 66       		.byte	102
+ 724 0037 66       		.byte	102
+ 725 0038 66       		.byte	102
+ 726 0039 66       		.byte	102
+ 727 003a 3C       		.byte	60
+ 728 003b 00       		.byte	0
+ 729 003c 00       		.byte	0
+ 730 003d 00       		.byte	0
+ 731 003e 66       		.byte	102
+ 732 003f 6E       		.byte	110
+ 733 0040 70       		.byte	112
+ 734 0041 60       		.byte	96
+ 735 0042 60       		.byte	96
+ 736 0043 60       		.byte	96
+ 737 0044 60       		.byte	96
+ 738 0045 00       		.byte	0
+ 739 0046 00       		.byte	0
+ 740 0047 00       		.byte	0
+ 741 0048 36       		.byte	54
+ 742 0049 7F       		.byte	127
+ 743 004a 7F       		.byte	127
+ 744 004b 3E       		.byte	62
+ 745 004c 1C       		.byte	28
+ 746 004d 08       		.byte	8
+ 747 004e 00       		.byte	0
+ 748 004f 00       		.byte	0
+ 749 0050 00       		.byte	0
+ 750 0051 00       		.byte	0
+ 751 0052 00       		.byte	0
+ 752 0053 00       		.byte	0
+ 753 0054 00       		.byte	0
+ 754 0055 00       		.byte	0
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 18
+
+
+ 755 0056 00       		.byte	0
+ 756 0057 00       		.byte	0
+ 757 0058 00       		.byte	0
+ 758 0059 00       		.byte	0
+ 759              		.data
+ 760              		.align	2
+ 761              		.set	.LANCHOR2,. + 0
+ 762              		.type	begin_position.5695, %object
+ 763              		.size	begin_position.5695, 2
+ 764              	begin_position.5695:
+ 765 0000 0900     		.short	9
+ 766 0002 0000     		.space	2
+ 767              		.type	color, %object
+ 768              		.size	color, 40
+ 769              	color:
+ 770 0004 007E0000 		.word	32256
+ 771 0008 7E000000 		.word	126
+ 772 000c 7E000000 		.word	126
+ 773 0010 7E000000 		.word	126
+ 774 0014 7E000000 		.word	126
+ 775 0018 7E000000 		.word	126
+ 776 001c 3F003F00 		.word	4128831
+ 777 0020 3F003F00 		.word	4128831
+ 778 0024 3F003F00 		.word	4128831
+ 779 0028 3F003F00 		.word	4128831
+ 780              		.type	text, %object
+ 781              		.size	text, 10
+ 782              	text:
+ 783 002c 07       		.byte	7
+ 784 002d 00       		.byte	0
+ 785 002e 03       		.byte	3
+ 786 002f 04       		.byte	4
+ 787 0030 04       		.byte	4
+ 788 0031 05       		.byte	5
+ 789 0032 00       		.byte	0
+ 790 0033 01       		.byte	1
+ 791 0034 02       		.byte	2
+ 792 0035 06       		.byte	6
+ 793              		.bss
+ 794              		.align	1
+ 795              		.set	.LANCHOR1,. + 0
+ 796              		.type	index_position.5696, %object
+ 797              		.size	index_position.5696, 2
+ 798              	index_position.5696:
+ 799 0000 0000     		.space	2
+ 800              		.type	point_position.5697, %object
+ 801              		.size	point_position.5697, 2
+ 802              	point_position.5697:
+ 803 0002 0000     		.space	2
+ 804              		.text
+ 805              	.Letext0:
+ 806              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 807              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 808              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 809              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 810              		.file 6 "font.h"
+ 811              		.file 7 "Generated_Source\\PSoC5/isr_ws2812.h"
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 19
+
+
+ 812              		.file 8 "Generated_Source\\PSoC5/Timer_1.h"
+ 813              		.file 9 "Generated_Source\\PSoC5/ws2812_1.h"
+ 814              		.file 10 "Generated_Source\\PSoC5/isr_timer.h"
+ 815              		.section	.debug_info,"",%progbits
+ 816              	.Ldebug_info0:
+ 817 0000 CE050000 		.4byte	0x5ce
+ 818 0004 0400     		.2byte	0x4
+ 819 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 820 000a 04       		.byte	0x4
+ 821 000b 01       		.uleb128 0x1
+ 822 000c B6020000 		.4byte	.LASF55
+ 823 0010 0C       		.byte	0xc
+ 824 0011 33020000 		.4byte	.LASF56
+ 825 0015 A6000000 		.4byte	.LASF57
+ 826 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 827 001d 00000000 		.4byte	0
+ 828 0021 00000000 		.4byte	.Ldebug_line0
+ 829 0025 02       		.uleb128 0x2
+ 830 0026 01       		.byte	0x1
+ 831 0027 06       		.byte	0x6
+ 832 0028 58010000 		.4byte	.LASF0
+ 833 002c 02       		.uleb128 0x2
+ 834 002d 01       		.byte	0x1
+ 835 002e 08       		.byte	0x8
+ 836 002f 4A010000 		.4byte	.LASF1
+ 837 0033 02       		.uleb128 0x2
+ 838 0034 02       		.byte	0x2
+ 839 0035 05       		.byte	0x5
+ 840 0036 63000000 		.4byte	.LASF2
+ 841 003a 02       		.uleb128 0x2
+ 842 003b 02       		.byte	0x2
+ 843 003c 07       		.byte	0x7
+ 844 003d B2010000 		.4byte	.LASF3
+ 845 0041 03       		.uleb128 0x3
+ 846 0042 7C020000 		.4byte	.LASF9
+ 847 0046 02       		.byte	0x2
+ 848 0047 3F       		.byte	0x3f
+ 849 0048 4C000000 		.4byte	0x4c
+ 850 004c 02       		.uleb128 0x2
+ 851 004d 04       		.byte	0x4
+ 852 004e 05       		.byte	0x5
+ 853 004f 17010000 		.4byte	.LASF4
+ 854 0053 02       		.uleb128 0x2
+ 855 0054 04       		.byte	0x4
+ 856 0055 07       		.byte	0x7
+ 857 0056 3F020000 		.4byte	.LASF5
+ 858 005a 02       		.uleb128 0x2
+ 859 005b 08       		.byte	0x8
+ 860 005c 05       		.byte	0x5
+ 861 005d E6000000 		.4byte	.LASF6
+ 862 0061 02       		.uleb128 0x2
+ 863 0062 08       		.byte	0x8
+ 864 0063 07       		.byte	0x7
+ 865 0064 64010000 		.4byte	.LASF7
+ 866 0068 04       		.uleb128 0x4
+ 867 0069 04       		.byte	0x4
+ 868 006a 05       		.byte	0x5
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 20
+
+
+ 869 006b 696E7400 		.ascii	"int\000"
+ 870 006f 02       		.uleb128 0x2
+ 871 0070 04       		.byte	0x4
+ 872 0071 07       		.byte	0x7
+ 873 0072 7B010000 		.4byte	.LASF8
+ 874 0076 03       		.uleb128 0x3
+ 875 0077 EC010000 		.4byte	.LASF10
+ 876 007b 03       		.byte	0x3
+ 877 007c 2C       		.byte	0x2c
+ 878 007d 41000000 		.4byte	0x41
+ 879 0081 05       		.uleb128 0x5
+ 880 0082 7A000000 		.4byte	.LASF11
+ 881 0086 04       		.byte	0x4
+ 882 0087 E901     		.2byte	0x1e9
+ 883 0089 2C000000 		.4byte	0x2c
+ 884 008d 05       		.uleb128 0x5
+ 885 008e 6D000000 		.4byte	.LASF12
+ 886 0092 04       		.byte	0x4
+ 887 0093 EA01     		.2byte	0x1ea
+ 888 0095 3A000000 		.4byte	0x3a
+ 889 0099 05       		.uleb128 0x5
+ 890 009a 57020000 		.4byte	.LASF13
+ 891 009e 04       		.byte	0x4
+ 892 009f EB01     		.2byte	0x1eb
+ 893 00a1 53000000 		.4byte	0x53
+ 894 00a5 05       		.uleb128 0x5
+ 895 00a6 FF000000 		.4byte	.LASF14
+ 896 00aa 04       		.byte	0x4
+ 897 00ab EC01     		.2byte	0x1ec
+ 898 00ad 25000000 		.4byte	0x25
+ 899 00b1 05       		.uleb128 0x5
+ 900 00b2 74000000 		.4byte	.LASF15
+ 901 00b6 04       		.byte	0x4
+ 902 00b7 ED01     		.2byte	0x1ed
+ 903 00b9 33000000 		.4byte	0x33
+ 904 00bd 02       		.uleb128 0x2
+ 905 00be 04       		.byte	0x4
+ 906 00bf 04       		.byte	0x4
+ 907 00c0 A0000000 		.4byte	.LASF16
+ 908 00c4 02       		.uleb128 0x2
+ 909 00c5 08       		.byte	0x8
+ 910 00c6 04       		.byte	0x4
+ 911 00c7 8F020000 		.4byte	.LASF17
+ 912 00cb 02       		.uleb128 0x2
+ 913 00cc 01       		.byte	0x1
+ 914 00cd 08       		.byte	0x8
+ 915 00ce D3010000 		.4byte	.LASF18
+ 916 00d2 05       		.uleb128 0x5
+ 917 00d3 3A020000 		.4byte	.LASF19
+ 918 00d7 04       		.byte	0x4
+ 919 00d8 9302     		.2byte	0x293
+ 920 00da DE000000 		.4byte	0xde
+ 921 00de 06       		.uleb128 0x6
+ 922 00df 81000000 		.4byte	0x81
+ 923 00e3 06       		.uleb128 0x6
+ 924 00e4 99000000 		.4byte	0x99
+ 925 00e8 02       		.uleb128 0x2
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 21
+
+
+ 926 00e9 08       		.byte	0x8
+ 927 00ea 04       		.byte	0x4
+ 928 00eb 3F000000 		.4byte	.LASF20
+ 929 00ef 02       		.uleb128 0x2
+ 930 00f0 04       		.byte	0x4
+ 931 00f1 07       		.byte	0x7
+ 932 00f2 86020000 		.4byte	.LASF21
+ 933 00f6 07       		.uleb128 0x7
+ 934 00f7 6002     		.2byte	0x260
+ 935 00f9 01       		.byte	0x1
+ 936 00fa 14       		.byte	0x14
+ 937 00fb 36010000 		.4byte	0x136
+ 938 00ff 08       		.uleb128 0x8
+ 939 0100 24020000 		.4byte	.LASF22
+ 940 0104 01       		.byte	0x1
+ 941 0105 15       		.byte	0x15
+ 942 0106 36010000 		.4byte	0x136
+ 943 010a 00       		.byte	0
+ 944 010b 09       		.uleb128 0x9
+ 945 010c A6010000 		.4byte	.LASF23
+ 946 0110 01       		.byte	0x1
+ 947 0111 16       		.byte	0x16
+ 948 0112 36010000 		.4byte	0x136
+ 949 0116 2C01     		.2byte	0x12c
+ 950 0118 09       		.uleb128 0x9
+ 951 0119 88010000 		.4byte	.LASF24
+ 952 011d 01       		.byte	0x1
+ 953 011e 17       		.byte	0x17
+ 954 011f 47010000 		.4byte	0x147
+ 955 0123 5802     		.2byte	0x258
+ 956 0125 0A       		.uleb128 0xa
+ 957 0126 2B020000 		.4byte	.LASF58
+ 958 012a 01       		.byte	0x1
+ 959 012b 18       		.byte	0x18
+ 960 012c E3000000 		.4byte	0xe3
+ 961 0130 04       		.byte	0x4
+ 962 0131 01       		.byte	0x1
+ 963 0132 1F       		.byte	0x1f
+ 964 0133 5C02     		.2byte	0x25c
+ 965 0135 00       		.byte	0
+ 966 0136 0B       		.uleb128 0xb
+ 967 0137 81000000 		.4byte	0x81
+ 968 013b 47010000 		.4byte	0x147
+ 969 013f 0C       		.uleb128 0xc
+ 970 0140 EF000000 		.4byte	0xef
+ 971 0144 2B01     		.2byte	0x12b
+ 972 0146 00       		.byte	0
+ 973 0147 0D       		.uleb128 0xd
+ 974 0148 04       		.byte	0x4
+ 975 0149 DE000000 		.4byte	0xde
+ 976 014d 0E       		.uleb128 0xe
+ 977 014e 5E020000 		.4byte	.LASF25
+ 978 0152 01       		.byte	0x1
+ 979 0153 24       		.byte	0x24
+ 980 0154 00000000 		.4byte	.LFB63
+ 981 0158 28000000 		.4byte	.LFE63-.LFB63
+ 982 015c 01       		.uleb128 0x1
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 22
+
+
+ 983 015d 9C       		.byte	0x9c
+ 984 015e 6C010000 		.4byte	0x16c
+ 985 0162 0F       		.uleb128 0xf
+ 986 0163 10000000 		.4byte	.LVL0
+ 987 0167 8F050000 		.4byte	0x58f
+ 988 016b 00       		.byte	0
+ 989 016c 0E       		.uleb128 0xe
+ 990 016d 16000000 		.4byte	.LASF26
+ 991 0171 01       		.byte	0x1
+ 992 0172 2D       		.byte	0x2d
+ 993 0173 00000000 		.4byte	.LFB64
+ 994 0177 4C000000 		.4byte	.LFE64-.LFB64
+ 995 017b 01       		.uleb128 0x1
+ 996 017c 9C       		.byte	0x9c
+ 997 017d A2010000 		.4byte	0x1a2
+ 998 0181 10       		.uleb128 0x10
+ 999 0182 02000000 		.4byte	.LBB2
+ 1000 0186 4A000000 		.4byte	.LBE2-.LBB2
+ 1001 018a 11       		.uleb128 0x11
+ 1002 018b 6900     		.ascii	"i\000"
+ 1003 018d 01       		.byte	0x1
+ 1004 018e 2F       		.byte	0x2f
+ 1005 018f 68000000 		.4byte	0x68
+ 1006 0193 00000000 		.4byte	.LLST0
+ 1007 0197 0F       		.uleb128 0xf
+ 1008 0198 20000000 		.4byte	.LVL3
+ 1009 019c 9A050000 		.4byte	0x59a
+ 1010 01a0 00       		.byte	0
+ 1011 01a1 00       		.byte	0
+ 1012 01a2 0E       		.uleb128 0xe
+ 1013 01a3 71020000 		.4byte	.LASF27
+ 1014 01a7 01       		.byte	0x1
+ 1015 01a8 77       		.byte	0x77
+ 1016 01a9 00000000 		.4byte	.LFB67
+ 1017 01ad 18000000 		.4byte	.LFE67-.LFB67
+ 1018 01b1 01       		.uleb128 0x1
+ 1019 01b2 9C       		.byte	0x9c
+ 1020 01b3 FA010000 		.4byte	0x1fa
+ 1021 01b7 12       		.uleb128 0x12
+ 1022 01b8 73726300 		.ascii	"src\000"
+ 1023 01bc 01       		.byte	0x1
+ 1024 01bd 77       		.byte	0x77
+ 1025 01be FA010000 		.4byte	0x1fa
+ 1026 01c2 2A000000 		.4byte	.LLST1
+ 1027 01c6 12       		.uleb128 0x12
+ 1028 01c7 64737400 		.ascii	"dst\000"
+ 1029 01cb 01       		.byte	0x1
+ 1030 01cc 77       		.byte	0x77
+ 1031 01cd FA010000 		.4byte	0x1fa
+ 1032 01d1 55000000 		.4byte	.LLST2
+ 1033 01d5 13       		.uleb128 0x13
+ 1034 01d6 6E756D00 		.ascii	"num\000"
+ 1035 01da 01       		.byte	0x1
+ 1036 01db 77       		.byte	0x77
+ 1037 01dc 99000000 		.4byte	0x99
+ 1038 01e0 01       		.uleb128 0x1
+ 1039 01e1 52       		.byte	0x52
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 23
+
+
+ 1040 01e2 10       		.uleb128 0x10
+ 1041 01e3 02000000 		.4byte	.LBB3
+ 1042 01e7 12000000 		.4byte	.LBE3-.LBB3
+ 1043 01eb 11       		.uleb128 0x11
+ 1044 01ec 6900     		.ascii	"i\000"
+ 1045 01ee 01       		.byte	0x1
+ 1046 01ef 79       		.byte	0x79
+ 1047 01f0 99000000 		.4byte	0x99
+ 1048 01f4 80000000 		.4byte	.LLST3
+ 1049 01f8 00       		.byte	0
+ 1050 01f9 00       		.byte	0
+ 1051 01fa 0D       		.uleb128 0xd
+ 1052 01fb 04       		.byte	0x4
+ 1053 01fc 99000000 		.4byte	0x99
+ 1054 0200 0E       		.uleb128 0xe
+ 1055 0201 C5010000 		.4byte	.LASF28
+ 1056 0205 01       		.byte	0x1
+ 1057 0206 8C       		.byte	0x8c
+ 1058 0207 00000000 		.4byte	.LFB69
+ 1059 020b 40000000 		.4byte	.LFE69-.LFB69
+ 1060 020f 01       		.uleb128 0x1
+ 1061 0210 9C       		.byte	0x9c
+ 1062 0211 4C020000 		.4byte	0x24c
+ 1063 0215 12       		.uleb128 0x12
+ 1064 0216 7800     		.ascii	"x\000"
+ 1065 0218 01       		.byte	0x1
+ 1066 0219 8C       		.byte	0x8c
+ 1067 021a 81000000 		.4byte	0x81
+ 1068 021e 9F000000 		.4byte	.LLST4
+ 1069 0222 12       		.uleb128 0x12
+ 1070 0223 7900     		.ascii	"y\000"
+ 1071 0225 01       		.byte	0x1
+ 1072 0226 8C       		.byte	0x8c
+ 1073 0227 81000000 		.4byte	0x81
+ 1074 022b C0000000 		.4byte	.LLST5
+ 1075 022f 14       		.uleb128 0x14
+ 1076 0230 39000000 		.4byte	.LASF29
+ 1077 0234 01       		.byte	0x1
+ 1078 0235 8C       		.byte	0x8c
+ 1079 0236 99000000 		.4byte	0x99
+ 1080 023a 01       		.uleb128 0x1
+ 1081 023b 52       		.byte	0x52
+ 1082 023c 15       		.uleb128 0x15
+ 1083 023d 51020000 		.4byte	.LASF30
+ 1084 0241 01       		.byte	0x1
+ 1085 0242 8E       		.byte	0x8e
+ 1086 0243 8D000000 		.4byte	0x8d
+ 1087 0247 E1000000 		.4byte	.LLST6
+ 1088 024b 00       		.byte	0
+ 1089 024c 0E       		.uleb128 0xe
+ 1090 024d 04010000 		.4byte	.LASF31
+ 1091 0251 01       		.byte	0x1
+ 1092 0252 7C       		.byte	0x7c
+ 1093 0253 00000000 		.4byte	.LFB68
+ 1094 0257 70000000 		.4byte	.LFE68-.LFB68
+ 1095 025b 01       		.uleb128 0x1
+ 1096 025c 9C       		.byte	0x9c
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 24
+
+
+ 1097 025d 2A030000 		.4byte	0x32a
+ 1098 0261 16       		.uleb128 0x16
+ 1099 0262 D7000000 		.4byte	.LASF32
+ 1100 0266 01       		.byte	0x1
+ 1101 0267 7C       		.byte	0x7c
+ 1102 0268 81000000 		.4byte	0x81
+ 1103 026c 1D010000 		.4byte	.LLST7
+ 1104 0270 16       		.uleb128 0x16
+ 1105 0271 26010000 		.4byte	.LASF33
+ 1106 0275 01       		.byte	0x1
+ 1107 0276 7C       		.byte	0x7c
+ 1108 0277 81000000 		.4byte	0x81
+ 1109 027b 3E010000 		.4byte	.LLST8
+ 1110 027f 16       		.uleb128 0x16
+ 1111 0280 93010000 		.4byte	.LASF34
+ 1112 0284 01       		.byte	0x1
+ 1113 0285 7C       		.byte	0x7c
+ 1114 0286 81000000 		.4byte	0x81
+ 1115 028a 5F010000 		.4byte	.LLST9
+ 1116 028e 16       		.uleb128 0x16
+ 1117 028f F4000000 		.4byte	.LASF35
+ 1118 0293 01       		.byte	0x1
+ 1119 0294 7C       		.byte	0x7c
+ 1120 0295 99000000 		.4byte	0x99
+ 1121 0299 80010000 		.4byte	.LLST10
+ 1122 029d 16       		.uleb128 0x16
+ 1123 029e 05000000 		.4byte	.LASF36
+ 1124 02a2 01       		.byte	0x1
+ 1125 02a3 7C       		.byte	0x7c
+ 1126 02a4 99000000 		.4byte	0x99
+ 1127 02a8 AC010000 		.4byte	.LLST11
+ 1128 02ac 15       		.uleb128 0x15
+ 1129 02ad 20010000 		.4byte	.LASF37
+ 1130 02b1 01       		.byte	0x1
+ 1131 02b2 7E       		.byte	0x7e
+ 1132 02b3 81000000 		.4byte	0x81
+ 1133 02b7 CC010000 		.4byte	.LLST12
+ 1134 02bb 10       		.uleb128 0x10
+ 1135 02bc 10000000 		.4byte	.LBB4
+ 1136 02c0 58000000 		.4byte	.LBE4-.LBB4
+ 1137 02c4 11       		.uleb128 0x11
+ 1138 02c5 6A00     		.ascii	"j\000"
+ 1139 02c7 01       		.byte	0x1
+ 1140 02c8 7F       		.byte	0x7f
+ 1141 02c9 A5000000 		.4byte	0xa5
+ 1142 02cd DF010000 		.4byte	.LLST13
+ 1143 02d1 10       		.uleb128 0x10
+ 1144 02d2 1C000000 		.4byte	.LBB5
+ 1145 02d6 44000000 		.4byte	.LBE5-.LBB5
+ 1146 02da 11       		.uleb128 0x11
+ 1147 02db 6900     		.ascii	"i\000"
+ 1148 02dd 01       		.byte	0x1
+ 1149 02de 82       		.byte	0x82
+ 1150 02df 81000000 		.4byte	0x81
+ 1151 02e3 09020000 		.4byte	.LLST14
+ 1152 02e7 17       		.uleb128 0x17
+ 1153 02e8 3E000000 		.4byte	.LVL24
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 25
+
+
+ 1154 02ec 00020000 		.4byte	0x200
+ 1155 02f0 09030000 		.4byte	0x309
+ 1156 02f4 18       		.uleb128 0x18
+ 1157 02f5 01       		.uleb128 0x1
+ 1158 02f6 50       		.byte	0x50
+ 1159 02f7 02       		.uleb128 0x2
+ 1160 02f8 74       		.byte	0x74
+ 1161 02f9 00       		.sleb128 0
+ 1162 02fa 18       		.uleb128 0x18
+ 1163 02fb 01       		.uleb128 0x1
+ 1164 02fc 51       		.byte	0x51
+ 1165 02fd 04       		.uleb128 0x4
+ 1166 02fe 39       		.byte	0x39
+ 1167 02ff 76       		.byte	0x76
+ 1168 0300 00       		.sleb128 0
+ 1169 0301 1C       		.byte	0x1c
+ 1170 0302 18       		.uleb128 0x18
+ 1171 0303 01       		.uleb128 0x1
+ 1172 0304 52       		.byte	0x52
+ 1173 0305 02       		.uleb128 0x2
+ 1174 0306 7A       		.byte	0x7a
+ 1175 0307 00       		.sleb128 0
+ 1176 0308 00       		.byte	0
+ 1177 0309 19       		.uleb128 0x19
+ 1178 030a 4E000000 		.4byte	.LVL25
+ 1179 030e 00020000 		.4byte	0x200
+ 1180 0312 18       		.uleb128 0x18
+ 1181 0313 01       		.uleb128 0x1
+ 1182 0314 50       		.byte	0x50
+ 1183 0315 02       		.uleb128 0x2
+ 1184 0316 74       		.byte	0x74
+ 1185 0317 00       		.sleb128 0
+ 1186 0318 18       		.uleb128 0x18
+ 1187 0319 01       		.uleb128 0x1
+ 1188 031a 51       		.byte	0x51
+ 1189 031b 04       		.uleb128 0x4
+ 1190 031c 39       		.byte	0x39
+ 1191 031d 76       		.byte	0x76
+ 1192 031e 00       		.sleb128 0
+ 1193 031f 1C       		.byte	0x1c
+ 1194 0320 18       		.uleb128 0x18
+ 1195 0321 01       		.uleb128 0x1
+ 1196 0322 52       		.byte	0x52
+ 1197 0323 02       		.uleb128 0x2
+ 1198 0324 79       		.byte	0x79
+ 1199 0325 00       		.sleb128 0
+ 1200 0326 00       		.byte	0
+ 1201 0327 00       		.byte	0
+ 1202 0328 00       		.byte	0
+ 1203 0329 00       		.byte	0
+ 1204 032a 0E       		.uleb128 0xe
+ 1205 032b 0E010000 		.4byte	.LASF38
+ 1206 032f 01       		.byte	0x1
+ 1207 0330 57       		.byte	0x57
+ 1208 0331 00000000 		.4byte	.LFB66
+ 1209 0335 AC000000 		.4byte	.LFE66-.LFB66
+ 1210 0339 01       		.uleb128 0x1
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 26
+
+
+ 1211 033a 9C       		.byte	0x9c
+ 1212 033b F0030000 		.4byte	0x3f0
+ 1213 033f 12       		.uleb128 0x12
+ 1214 0340 73747200 		.ascii	"str\000"
+ 1215 0344 01       		.byte	0x1
+ 1216 0345 57       		.byte	0x57
+ 1217 0346 F0030000 		.4byte	0x3f0
+ 1218 034a 32020000 		.4byte	.LLST15
+ 1219 034e 12       		.uleb128 0x12
+ 1220 034f 6C656E00 		.ascii	"len\000"
+ 1221 0353 01       		.byte	0x1
+ 1222 0354 57       		.byte	0x57
+ 1223 0355 8D000000 		.4byte	0x8d
+ 1224 0359 5E020000 		.4byte	.LLST16
+ 1225 035d 16       		.uleb128 0x16
+ 1226 035e F4000000 		.4byte	.LASF35
+ 1227 0362 01       		.byte	0x1
+ 1228 0363 57       		.byte	0x57
+ 1229 0364 FA010000 		.4byte	0x1fa
+ 1230 0368 7F020000 		.4byte	.LLST17
+ 1231 036c 16       		.uleb128 0x16
+ 1232 036d 05000000 		.4byte	.LASF36
+ 1233 0371 01       		.byte	0x1
+ 1234 0372 57       		.byte	0x57
+ 1235 0373 99000000 		.4byte	0x99
+ 1236 0377 AB020000 		.4byte	.LLST18
+ 1237 037b 1A       		.uleb128 0x1a
+ 1238 037c 32010000 		.4byte	.LASF39
+ 1239 0380 01       		.byte	0x1
+ 1240 0381 59       		.byte	0x59
+ 1241 0382 8D000000 		.4byte	0x8d
+ 1242 0386 05       		.uleb128 0x5
+ 1243 0387 03       		.byte	0x3
+ 1244 0388 00000000 		.4byte	begin_position.5695
+ 1245 038c 1A       		.uleb128 0x1a
+ 1246 038d DD010000 		.4byte	.LASF40
+ 1247 0391 01       		.byte	0x1
+ 1248 0392 5A       		.byte	0x5a
+ 1249 0393 8D000000 		.4byte	0x8d
+ 1250 0397 05       		.uleb128 0x5
+ 1251 0398 03       		.byte	0x3
+ 1252 0399 00000000 		.4byte	index_position.5696
+ 1253 039d 1A       		.uleb128 0x1a
+ 1254 039e 2A000000 		.4byte	.LASF41
+ 1255 03a2 01       		.byte	0x1
+ 1256 03a3 5B       		.byte	0x5b
+ 1257 03a4 8D000000 		.4byte	0x8d
+ 1258 03a8 05       		.uleb128 0x5
+ 1259 03a9 03       		.byte	0x3
+ 1260 03aa 02000000 		.4byte	point_position.5697
+ 1261 03ae 10       		.uleb128 0x10
+ 1262 03af 0E000000 		.4byte	.LBB6
+ 1263 03b3 5C000000 		.4byte	.LBE6-.LBB6
+ 1264 03b7 11       		.uleb128 0x11
+ 1265 03b8 6900     		.ascii	"i\000"
+ 1266 03ba 01       		.byte	0x1
+ 1267 03bb 5C       		.byte	0x5c
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 27
+
+
+ 1268 03bc B1000000 		.4byte	0xb1
+ 1269 03c0 D7020000 		.4byte	.LLST19
+ 1270 03c4 10       		.uleb128 0x10
+ 1271 03c5 12000000 		.4byte	.LBB7
+ 1272 03c9 3E000000 		.4byte	.LBE7-.LBB7
+ 1273 03cd 15       		.uleb128 0x15
+ 1274 03ce 41010000 		.4byte	.LASF42
+ 1275 03d2 01       		.byte	0x1
+ 1276 03d3 5E       		.byte	0x5e
+ 1277 03d4 81000000 		.4byte	0x81
+ 1278 03d8 01030000 		.4byte	.LLST20
+ 1279 03dc 19       		.uleb128 0x19
+ 1280 03dd 50000000 		.4byte	.LVL38
+ 1281 03e1 4C020000 		.4byte	0x24c
+ 1282 03e5 18       		.uleb128 0x18
+ 1283 03e6 02       		.uleb128 0x2
+ 1284 03e7 7D       		.byte	0x7d
+ 1285 03e8 00       		.sleb128 0
+ 1286 03e9 02       		.uleb128 0x2
+ 1287 03ea 76       		.byte	0x76
+ 1288 03eb 00       		.sleb128 0
+ 1289 03ec 00       		.byte	0
+ 1290 03ed 00       		.byte	0
+ 1291 03ee 00       		.byte	0
+ 1292 03ef 00       		.byte	0
+ 1293 03f0 0D       		.uleb128 0xd
+ 1294 03f1 04       		.byte	0x4
+ 1295 03f2 81000000 		.4byte	0x81
+ 1296 03f6 0E       		.uleb128 0xe
+ 1297 03f7 9B010000 		.4byte	.LASF43
+ 1298 03fb 01       		.byte	0x1
+ 1299 03fc 93       		.byte	0x93
+ 1300 03fd 00000000 		.4byte	.LFB70
+ 1301 0401 38000000 		.4byte	.LFE70-.LFB70
+ 1302 0405 01       		.uleb128 0x1
+ 1303 0406 9C       		.byte	0x9c
+ 1304 0407 30040000 		.4byte	0x430
+ 1305 040b 14       		.uleb128 0x14
+ 1306 040c 39000000 		.4byte	.LASF29
+ 1307 0410 01       		.byte	0x1
+ 1308 0411 93       		.byte	0x93
+ 1309 0412 99000000 		.4byte	0x99
+ 1310 0416 01       		.uleb128 0x1
+ 1311 0417 50       		.byte	0x50
+ 1312 0418 10       		.uleb128 0x10
+ 1313 0419 02000000 		.4byte	.LBB8
+ 1314 041d 2E000000 		.4byte	.LBE8-.LBB8
+ 1315 0421 11       		.uleb128 0x11
+ 1316 0422 6900     		.ascii	"i\000"
+ 1317 0424 01       		.byte	0x1
+ 1318 0425 95       		.byte	0x95
+ 1319 0426 8D000000 		.4byte	0x8d
+ 1320 042a 14030000 		.4byte	.LLST21
+ 1321 042e 00       		.byte	0
+ 1322 042f 00       		.byte	0
+ 1323 0430 1B       		.uleb128 0x1b
+ 1324 0431 D8010000 		.4byte	.LASF59
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 28
+
+
+ 1325 0435 01       		.byte	0x1
+ 1326 0436 40       		.byte	0x40
+ 1327 0437 68000000 		.4byte	0x68
+ 1328 043b 00000000 		.4byte	.LFB65
+ 1329 043f 7C000000 		.4byte	.LFE65-.LFB65
+ 1330 0443 01       		.uleb128 0x1
+ 1331 0444 9C       		.byte	0x9c
+ 1332 0445 FA040000 		.4byte	0x4fa
+ 1333 0449 15       		.uleb128 0x15
+ 1334 044a 4B000000 		.4byte	.LASF44
+ 1335 044e 01       		.byte	0x1
+ 1336 044f 4A       		.byte	0x4a
+ 1337 0450 8D000000 		.4byte	0x8d
+ 1338 0454 3E030000 		.4byte	.LLST22
+ 1339 0458 17       		.uleb128 0x17
+ 1340 0459 0E000000 		.4byte	.LVL47
+ 1341 045d F6030000 		.4byte	0x3f6
+ 1342 0461 6B040000 		.4byte	0x46b
+ 1343 0465 18       		.uleb128 0x18
+ 1344 0466 01       		.uleb128 0x1
+ 1345 0467 50       		.byte	0x50
+ 1346 0468 01       		.uleb128 0x1
+ 1347 0469 30       		.byte	0x30
+ 1348 046a 00       		.byte	0
+ 1349 046b 0F       		.uleb128 0xf
+ 1350 046c 14000000 		.4byte	.LVL48
+ 1351 0470 A5050000 		.4byte	0x5a5
+ 1352 0474 0F       		.uleb128 0xf
+ 1353 0475 18000000 		.4byte	.LVL49
+ 1354 0479 B0050000 		.4byte	0x5b0
+ 1355 047d 17       		.uleb128 0x17
+ 1356 047e 1E000000 		.4byte	.LVL50
+ 1357 0482 BB050000 		.4byte	0x5bb
+ 1358 0486 94040000 		.4byte	0x494
+ 1359 048a 18       		.uleb128 0x18
+ 1360 048b 01       		.uleb128 0x1
+ 1361 048c 50       		.byte	0x50
+ 1362 048d 05       		.uleb128 0x5
+ 1363 048e 03       		.byte	0x3
+ 1364 048f 00000000 		.4byte	WS2812_HANDLER
+ 1365 0493 00       		.byte	0
+ 1366 0494 17       		.uleb128 0x17
+ 1367 0495 24000000 		.4byte	.LVL51
+ 1368 0499 C6050000 		.4byte	0x5c6
+ 1369 049d AB040000 		.4byte	0x4ab
+ 1370 04a1 18       		.uleb128 0x18
+ 1371 04a2 01       		.uleb128 0x1
+ 1372 04a3 50       		.byte	0x50
+ 1373 04a4 05       		.uleb128 0x5
+ 1374 04a5 03       		.byte	0x3
+ 1375 04a6 00000000 		.4byte	TIMER100HZ_HANDLER
+ 1376 04aa 00       		.byte	0
+ 1377 04ab 17       		.uleb128 0x17
+ 1378 04ac 3E000000 		.4byte	.LVL55
+ 1379 04b0 2A030000 		.4byte	0x32a
+ 1380 04b4 D7040000 		.4byte	0x4d7
+ 1381 04b8 18       		.uleb128 0x18
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 29
+
+
+ 1382 04b9 01       		.uleb128 0x1
+ 1383 04ba 50       		.byte	0x50
+ 1384 04bb 05       		.uleb128 0x5
+ 1385 04bc 03       		.byte	0x3
+ 1386 04bd 2C000000 		.4byte	.LANCHOR2+44
+ 1387 04c1 18       		.uleb128 0x18
+ 1388 04c2 01       		.uleb128 0x1
+ 1389 04c3 51       		.byte	0x51
+ 1390 04c4 01       		.uleb128 0x1
+ 1391 04c5 3A       		.byte	0x3a
+ 1392 04c6 18       		.uleb128 0x18
+ 1393 04c7 01       		.uleb128 0x1
+ 1394 04c8 52       		.byte	0x52
+ 1395 04c9 05       		.uleb128 0x5
+ 1396 04ca 03       		.byte	0x3
+ 1397 04cb 04000000 		.4byte	.LANCHOR2+4
+ 1398 04cf 18       		.uleb128 0x18
+ 1399 04d0 01       		.uleb128 0x1
+ 1400 04d1 53       		.byte	0x53
+ 1401 04d2 03       		.uleb128 0x3
+ 1402 04d3 40       		.byte	0x40
+ 1403 04d4 3F       		.byte	0x3f
+ 1404 04d5 24       		.byte	0x24
+ 1405 04d6 00       		.byte	0
+ 1406 04d7 19       		.uleb128 0x19
+ 1407 04d8 68000000 		.4byte	.LVL58
+ 1408 04dc A2010000 		.4byte	0x1a2
+ 1409 04e0 18       		.uleb128 0x18
+ 1410 04e1 01       		.uleb128 0x1
+ 1411 04e2 50       		.byte	0x50
+ 1412 04e3 05       		.uleb128 0x5
+ 1413 04e4 03       		.byte	0x3
+ 1414 04e5 2C010000 		.4byte	ws2812_struct+300
+ 1415 04e9 18       		.uleb128 0x18
+ 1416 04ea 01       		.uleb128 0x1
+ 1417 04eb 51       		.byte	0x51
+ 1418 04ec 05       		.uleb128 0x5
+ 1419 04ed 03       		.byte	0x3
+ 1420 04ee 00000000 		.4byte	ws2812_struct
+ 1421 04f2 18       		.uleb128 0x18
+ 1422 04f3 01       		.uleb128 0x1
+ 1423 04f4 52       		.byte	0x52
+ 1424 04f5 02       		.uleb128 0x2
+ 1425 04f6 08       		.byte	0x8
+ 1426 04f7 4B       		.byte	0x4b
+ 1427 04f8 00       		.byte	0
+ 1428 04f9 00       		.byte	0
+ 1429 04fa 1C       		.uleb128 0x1c
+ 1430 04fb A9020000 		.4byte	.LASF45
+ 1431 04ff 05       		.byte	0x5
+ 1432 0500 1207     		.2byte	0x712
+ 1433 0502 06050000 		.4byte	0x506
+ 1434 0506 06       		.uleb128 0x6
+ 1435 0507 76000000 		.4byte	0x76
+ 1436 050b 0B       		.uleb128 0xb
+ 1437 050c 81000000 		.4byte	0x81
+ 1438 0510 1B050000 		.4byte	0x51b
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 30
+
+
+ 1439 0514 1D       		.uleb128 0x1d
+ 1440 0515 EF000000 		.4byte	0xef
+ 1441 0519 09       		.byte	0x9
+ 1442 051a 00       		.byte	0
+ 1443 051b 1E       		.uleb128 0x1e
+ 1444 051c 00000000 		.4byte	.LASF46
+ 1445 0520 06       		.byte	0x6
+ 1446 0521 10       		.byte	0x10
+ 1447 0522 0B050000 		.4byte	0x50b
+ 1448 0526 05       		.uleb128 0x5
+ 1449 0527 03       		.byte	0x3
+ 1450 0528 00000000 		.4byte	text
+ 1451 052c 0B       		.uleb128 0xb
+ 1452 052d 99000000 		.4byte	0x99
+ 1453 0531 3C050000 		.4byte	0x53c
+ 1454 0535 1D       		.uleb128 0x1d
+ 1455 0536 EF000000 		.4byte	0xef
+ 1456 053a 09       		.byte	0x9
+ 1457 053b 00       		.byte	0
+ 1458 053c 1E       		.uleb128 0x1e
+ 1459 053d 39000000 		.4byte	.LASF29
+ 1460 0541 06       		.byte	0x6
+ 1461 0542 11       		.byte	0x11
+ 1462 0543 2C050000 		.4byte	0x52c
+ 1463 0547 05       		.uleb128 0x5
+ 1464 0548 03       		.byte	0x3
+ 1465 0549 00000000 		.4byte	color
+ 1466 054d 0B       		.uleb128 0xb
+ 1467 054e 63050000 		.4byte	0x563
+ 1468 0552 63050000 		.4byte	0x563
+ 1469 0556 1D       		.uleb128 0x1d
+ 1470 0557 EF000000 		.4byte	0xef
+ 1471 055b 08       		.byte	0x8
+ 1472 055c 1D       		.uleb128 0x1d
+ 1473 055d EF000000 		.4byte	0xef
+ 1474 0561 09       		.byte	0x9
+ 1475 0562 00       		.byte	0
+ 1476 0563 1F       		.uleb128 0x1f
+ 1477 0564 81000000 		.4byte	0x81
+ 1478 0568 1E       		.uleb128 0x1e
+ 1479 0569 25000000 		.4byte	.LASF47
+ 1480 056d 06       		.byte	0x6
+ 1481 056e 12       		.byte	0x12
+ 1482 056f 79050000 		.4byte	0x579
+ 1483 0573 05       		.uleb128 0x5
+ 1484 0574 03       		.byte	0x3
+ 1485 0575 00000000 		.4byte	font
+ 1486 0579 1F       		.uleb128 0x1f
+ 1487 057a 4D050000 		.4byte	0x54d
+ 1488 057e 1E       		.uleb128 0x1e
+ 1489 057f 80000000 		.4byte	.LASF48
+ 1490 0583 01       		.byte	0x1
+ 1491 0584 19       		.byte	0x19
+ 1492 0585 F6000000 		.4byte	0xf6
+ 1493 0589 05       		.uleb128 0x5
+ 1494 058a 03       		.byte	0x3
+ 1495 058b 00000000 		.4byte	ws2812_struct
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 31
+
+
+ 1496 058f 20       		.uleb128 0x20
+ 1497 0590 8E000000 		.4byte	.LASF49
+ 1498 0594 8E000000 		.4byte	.LASF49
+ 1499 0598 07       		.byte	0x7
+ 1500 0599 23       		.byte	0x23
+ 1501 059a 20       		.uleb128 0x20
+ 1502 059b 96020000 		.4byte	.LASF50
+ 1503 059f 96020000 		.4byte	.LASF50
+ 1504 05a3 07       		.byte	0x7
+ 1505 05a4 25       		.byte	0x25
+ 1506 05a5 20       		.uleb128 0x20
+ 1507 05a6 16020000 		.4byte	.LASF51
+ 1508 05aa 16020000 		.4byte	.LASF51
+ 1509 05ae 08       		.byte	0x8
+ 1510 05af 5A       		.byte	0x5a
+ 1511 05b0 20       		.uleb128 0x20
+ 1512 05b1 07020000 		.4byte	.LASF52
+ 1513 05b5 07020000 		.4byte	.LASF52
+ 1514 05b9 09       		.byte	0x9
+ 1515 05ba 16       		.byte	0x16
+ 1516 05bb 20       		.uleb128 0x20
+ 1517 05bc F4010000 		.4byte	.LASF53
+ 1518 05c0 F4010000 		.4byte	.LASF53
+ 1519 05c4 07       		.byte	0x7
+ 1520 05c5 18       		.byte	0x18
+ 1521 05c6 20       		.uleb128 0x20
+ 1522 05c7 51000000 		.4byte	.LASF54
+ 1523 05cb 51000000 		.4byte	.LASF54
+ 1524 05cf 0A       		.byte	0xa
+ 1525 05d0 18       		.byte	0x18
+ 1526 05d1 00       		.byte	0
+ 1527              		.section	.debug_abbrev,"",%progbits
+ 1528              	.Ldebug_abbrev0:
+ 1529 0000 01       		.uleb128 0x1
+ 1530 0001 11       		.uleb128 0x11
+ 1531 0002 01       		.byte	0x1
+ 1532 0003 25       		.uleb128 0x25
+ 1533 0004 0E       		.uleb128 0xe
+ 1534 0005 13       		.uleb128 0x13
+ 1535 0006 0B       		.uleb128 0xb
+ 1536 0007 03       		.uleb128 0x3
+ 1537 0008 0E       		.uleb128 0xe
+ 1538 0009 1B       		.uleb128 0x1b
+ 1539 000a 0E       		.uleb128 0xe
+ 1540 000b 55       		.uleb128 0x55
+ 1541 000c 17       		.uleb128 0x17
+ 1542 000d 11       		.uleb128 0x11
+ 1543 000e 01       		.uleb128 0x1
+ 1544 000f 10       		.uleb128 0x10
+ 1545 0010 17       		.uleb128 0x17
+ 1546 0011 00       		.byte	0
+ 1547 0012 00       		.byte	0
+ 1548 0013 02       		.uleb128 0x2
+ 1549 0014 24       		.uleb128 0x24
+ 1550 0015 00       		.byte	0
+ 1551 0016 0B       		.uleb128 0xb
+ 1552 0017 0B       		.uleb128 0xb
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 32
+
+
+ 1553 0018 3E       		.uleb128 0x3e
+ 1554 0019 0B       		.uleb128 0xb
+ 1555 001a 03       		.uleb128 0x3
+ 1556 001b 0E       		.uleb128 0xe
+ 1557 001c 00       		.byte	0
+ 1558 001d 00       		.byte	0
+ 1559 001e 03       		.uleb128 0x3
+ 1560 001f 16       		.uleb128 0x16
+ 1561 0020 00       		.byte	0
+ 1562 0021 03       		.uleb128 0x3
+ 1563 0022 0E       		.uleb128 0xe
+ 1564 0023 3A       		.uleb128 0x3a
+ 1565 0024 0B       		.uleb128 0xb
+ 1566 0025 3B       		.uleb128 0x3b
+ 1567 0026 0B       		.uleb128 0xb
+ 1568 0027 49       		.uleb128 0x49
+ 1569 0028 13       		.uleb128 0x13
+ 1570 0029 00       		.byte	0
+ 1571 002a 00       		.byte	0
+ 1572 002b 04       		.uleb128 0x4
+ 1573 002c 24       		.uleb128 0x24
+ 1574 002d 00       		.byte	0
+ 1575 002e 0B       		.uleb128 0xb
+ 1576 002f 0B       		.uleb128 0xb
+ 1577 0030 3E       		.uleb128 0x3e
+ 1578 0031 0B       		.uleb128 0xb
+ 1579 0032 03       		.uleb128 0x3
+ 1580 0033 08       		.uleb128 0x8
+ 1581 0034 00       		.byte	0
+ 1582 0035 00       		.byte	0
+ 1583 0036 05       		.uleb128 0x5
+ 1584 0037 16       		.uleb128 0x16
+ 1585 0038 00       		.byte	0
+ 1586 0039 03       		.uleb128 0x3
+ 1587 003a 0E       		.uleb128 0xe
+ 1588 003b 3A       		.uleb128 0x3a
+ 1589 003c 0B       		.uleb128 0xb
+ 1590 003d 3B       		.uleb128 0x3b
+ 1591 003e 05       		.uleb128 0x5
+ 1592 003f 49       		.uleb128 0x49
+ 1593 0040 13       		.uleb128 0x13
+ 1594 0041 00       		.byte	0
+ 1595 0042 00       		.byte	0
+ 1596 0043 06       		.uleb128 0x6
+ 1597 0044 35       		.uleb128 0x35
+ 1598 0045 00       		.byte	0
+ 1599 0046 49       		.uleb128 0x49
+ 1600 0047 13       		.uleb128 0x13
+ 1601 0048 00       		.byte	0
+ 1602 0049 00       		.byte	0
+ 1603 004a 07       		.uleb128 0x7
+ 1604 004b 13       		.uleb128 0x13
+ 1605 004c 01       		.byte	0x1
+ 1606 004d 0B       		.uleb128 0xb
+ 1607 004e 05       		.uleb128 0x5
+ 1608 004f 3A       		.uleb128 0x3a
+ 1609 0050 0B       		.uleb128 0xb
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 33
+
+
+ 1610 0051 3B       		.uleb128 0x3b
+ 1611 0052 0B       		.uleb128 0xb
+ 1612 0053 01       		.uleb128 0x1
+ 1613 0054 13       		.uleb128 0x13
+ 1614 0055 00       		.byte	0
+ 1615 0056 00       		.byte	0
+ 1616 0057 08       		.uleb128 0x8
+ 1617 0058 0D       		.uleb128 0xd
+ 1618 0059 00       		.byte	0
+ 1619 005a 03       		.uleb128 0x3
+ 1620 005b 0E       		.uleb128 0xe
+ 1621 005c 3A       		.uleb128 0x3a
+ 1622 005d 0B       		.uleb128 0xb
+ 1623 005e 3B       		.uleb128 0x3b
+ 1624 005f 0B       		.uleb128 0xb
+ 1625 0060 49       		.uleb128 0x49
+ 1626 0061 13       		.uleb128 0x13
+ 1627 0062 38       		.uleb128 0x38
+ 1628 0063 0B       		.uleb128 0xb
+ 1629 0064 00       		.byte	0
+ 1630 0065 00       		.byte	0
+ 1631 0066 09       		.uleb128 0x9
+ 1632 0067 0D       		.uleb128 0xd
+ 1633 0068 00       		.byte	0
+ 1634 0069 03       		.uleb128 0x3
+ 1635 006a 0E       		.uleb128 0xe
+ 1636 006b 3A       		.uleb128 0x3a
+ 1637 006c 0B       		.uleb128 0xb
+ 1638 006d 3B       		.uleb128 0x3b
+ 1639 006e 0B       		.uleb128 0xb
+ 1640 006f 49       		.uleb128 0x49
+ 1641 0070 13       		.uleb128 0x13
+ 1642 0071 38       		.uleb128 0x38
+ 1643 0072 05       		.uleb128 0x5
+ 1644 0073 00       		.byte	0
+ 1645 0074 00       		.byte	0
+ 1646 0075 0A       		.uleb128 0xa
+ 1647 0076 0D       		.uleb128 0xd
+ 1648 0077 00       		.byte	0
+ 1649 0078 03       		.uleb128 0x3
+ 1650 0079 0E       		.uleb128 0xe
+ 1651 007a 3A       		.uleb128 0x3a
+ 1652 007b 0B       		.uleb128 0xb
+ 1653 007c 3B       		.uleb128 0x3b
+ 1654 007d 0B       		.uleb128 0xb
+ 1655 007e 49       		.uleb128 0x49
+ 1656 007f 13       		.uleb128 0x13
+ 1657 0080 0B       		.uleb128 0xb
+ 1658 0081 0B       		.uleb128 0xb
+ 1659 0082 0D       		.uleb128 0xd
+ 1660 0083 0B       		.uleb128 0xb
+ 1661 0084 0C       		.uleb128 0xc
+ 1662 0085 0B       		.uleb128 0xb
+ 1663 0086 38       		.uleb128 0x38
+ 1664 0087 05       		.uleb128 0x5
+ 1665 0088 00       		.byte	0
+ 1666 0089 00       		.byte	0
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 34
+
+
+ 1667 008a 0B       		.uleb128 0xb
+ 1668 008b 01       		.uleb128 0x1
+ 1669 008c 01       		.byte	0x1
+ 1670 008d 49       		.uleb128 0x49
+ 1671 008e 13       		.uleb128 0x13
+ 1672 008f 01       		.uleb128 0x1
+ 1673 0090 13       		.uleb128 0x13
+ 1674 0091 00       		.byte	0
+ 1675 0092 00       		.byte	0
+ 1676 0093 0C       		.uleb128 0xc
+ 1677 0094 21       		.uleb128 0x21
+ 1678 0095 00       		.byte	0
+ 1679 0096 49       		.uleb128 0x49
+ 1680 0097 13       		.uleb128 0x13
+ 1681 0098 2F       		.uleb128 0x2f
+ 1682 0099 05       		.uleb128 0x5
+ 1683 009a 00       		.byte	0
+ 1684 009b 00       		.byte	0
+ 1685 009c 0D       		.uleb128 0xd
+ 1686 009d 0F       		.uleb128 0xf
+ 1687 009e 00       		.byte	0
+ 1688 009f 0B       		.uleb128 0xb
+ 1689 00a0 0B       		.uleb128 0xb
+ 1690 00a1 49       		.uleb128 0x49
+ 1691 00a2 13       		.uleb128 0x13
+ 1692 00a3 00       		.byte	0
+ 1693 00a4 00       		.byte	0
+ 1694 00a5 0E       		.uleb128 0xe
+ 1695 00a6 2E       		.uleb128 0x2e
+ 1696 00a7 01       		.byte	0x1
+ 1697 00a8 3F       		.uleb128 0x3f
+ 1698 00a9 19       		.uleb128 0x19
+ 1699 00aa 03       		.uleb128 0x3
+ 1700 00ab 0E       		.uleb128 0xe
+ 1701 00ac 3A       		.uleb128 0x3a
+ 1702 00ad 0B       		.uleb128 0xb
+ 1703 00ae 3B       		.uleb128 0x3b
+ 1704 00af 0B       		.uleb128 0xb
+ 1705 00b0 27       		.uleb128 0x27
+ 1706 00b1 19       		.uleb128 0x19
+ 1707 00b2 11       		.uleb128 0x11
+ 1708 00b3 01       		.uleb128 0x1
+ 1709 00b4 12       		.uleb128 0x12
+ 1710 00b5 06       		.uleb128 0x6
+ 1711 00b6 40       		.uleb128 0x40
+ 1712 00b7 18       		.uleb128 0x18
+ 1713 00b8 9742     		.uleb128 0x2117
+ 1714 00ba 19       		.uleb128 0x19
+ 1715 00bb 01       		.uleb128 0x1
+ 1716 00bc 13       		.uleb128 0x13
+ 1717 00bd 00       		.byte	0
+ 1718 00be 00       		.byte	0
+ 1719 00bf 0F       		.uleb128 0xf
+ 1720 00c0 898201   		.uleb128 0x4109
+ 1721 00c3 00       		.byte	0
+ 1722 00c4 11       		.uleb128 0x11
+ 1723 00c5 01       		.uleb128 0x1
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 35
+
+
+ 1724 00c6 31       		.uleb128 0x31
+ 1725 00c7 13       		.uleb128 0x13
+ 1726 00c8 00       		.byte	0
+ 1727 00c9 00       		.byte	0
+ 1728 00ca 10       		.uleb128 0x10
+ 1729 00cb 0B       		.uleb128 0xb
+ 1730 00cc 01       		.byte	0x1
+ 1731 00cd 11       		.uleb128 0x11
+ 1732 00ce 01       		.uleb128 0x1
+ 1733 00cf 12       		.uleb128 0x12
+ 1734 00d0 06       		.uleb128 0x6
+ 1735 00d1 00       		.byte	0
+ 1736 00d2 00       		.byte	0
+ 1737 00d3 11       		.uleb128 0x11
+ 1738 00d4 34       		.uleb128 0x34
+ 1739 00d5 00       		.byte	0
+ 1740 00d6 03       		.uleb128 0x3
+ 1741 00d7 08       		.uleb128 0x8
+ 1742 00d8 3A       		.uleb128 0x3a
+ 1743 00d9 0B       		.uleb128 0xb
+ 1744 00da 3B       		.uleb128 0x3b
+ 1745 00db 0B       		.uleb128 0xb
+ 1746 00dc 49       		.uleb128 0x49
+ 1747 00dd 13       		.uleb128 0x13
+ 1748 00de 02       		.uleb128 0x2
+ 1749 00df 17       		.uleb128 0x17
+ 1750 00e0 00       		.byte	0
+ 1751 00e1 00       		.byte	0
+ 1752 00e2 12       		.uleb128 0x12
+ 1753 00e3 05       		.uleb128 0x5
+ 1754 00e4 00       		.byte	0
+ 1755 00e5 03       		.uleb128 0x3
+ 1756 00e6 08       		.uleb128 0x8
+ 1757 00e7 3A       		.uleb128 0x3a
+ 1758 00e8 0B       		.uleb128 0xb
+ 1759 00e9 3B       		.uleb128 0x3b
+ 1760 00ea 0B       		.uleb128 0xb
+ 1761 00eb 49       		.uleb128 0x49
+ 1762 00ec 13       		.uleb128 0x13
+ 1763 00ed 02       		.uleb128 0x2
+ 1764 00ee 17       		.uleb128 0x17
+ 1765 00ef 00       		.byte	0
+ 1766 00f0 00       		.byte	0
+ 1767 00f1 13       		.uleb128 0x13
+ 1768 00f2 05       		.uleb128 0x5
+ 1769 00f3 00       		.byte	0
+ 1770 00f4 03       		.uleb128 0x3
+ 1771 00f5 08       		.uleb128 0x8
+ 1772 00f6 3A       		.uleb128 0x3a
+ 1773 00f7 0B       		.uleb128 0xb
+ 1774 00f8 3B       		.uleb128 0x3b
+ 1775 00f9 0B       		.uleb128 0xb
+ 1776 00fa 49       		.uleb128 0x49
+ 1777 00fb 13       		.uleb128 0x13
+ 1778 00fc 02       		.uleb128 0x2
+ 1779 00fd 18       		.uleb128 0x18
+ 1780 00fe 00       		.byte	0
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 36
+
+
+ 1781 00ff 00       		.byte	0
+ 1782 0100 14       		.uleb128 0x14
+ 1783 0101 05       		.uleb128 0x5
+ 1784 0102 00       		.byte	0
+ 1785 0103 03       		.uleb128 0x3
+ 1786 0104 0E       		.uleb128 0xe
+ 1787 0105 3A       		.uleb128 0x3a
+ 1788 0106 0B       		.uleb128 0xb
+ 1789 0107 3B       		.uleb128 0x3b
+ 1790 0108 0B       		.uleb128 0xb
+ 1791 0109 49       		.uleb128 0x49
+ 1792 010a 13       		.uleb128 0x13
+ 1793 010b 02       		.uleb128 0x2
+ 1794 010c 18       		.uleb128 0x18
+ 1795 010d 00       		.byte	0
+ 1796 010e 00       		.byte	0
+ 1797 010f 15       		.uleb128 0x15
+ 1798 0110 34       		.uleb128 0x34
+ 1799 0111 00       		.byte	0
+ 1800 0112 03       		.uleb128 0x3
+ 1801 0113 0E       		.uleb128 0xe
+ 1802 0114 3A       		.uleb128 0x3a
+ 1803 0115 0B       		.uleb128 0xb
+ 1804 0116 3B       		.uleb128 0x3b
+ 1805 0117 0B       		.uleb128 0xb
+ 1806 0118 49       		.uleb128 0x49
+ 1807 0119 13       		.uleb128 0x13
+ 1808 011a 02       		.uleb128 0x2
+ 1809 011b 17       		.uleb128 0x17
+ 1810 011c 00       		.byte	0
+ 1811 011d 00       		.byte	0
+ 1812 011e 16       		.uleb128 0x16
+ 1813 011f 05       		.uleb128 0x5
+ 1814 0120 00       		.byte	0
+ 1815 0121 03       		.uleb128 0x3
+ 1816 0122 0E       		.uleb128 0xe
+ 1817 0123 3A       		.uleb128 0x3a
+ 1818 0124 0B       		.uleb128 0xb
+ 1819 0125 3B       		.uleb128 0x3b
+ 1820 0126 0B       		.uleb128 0xb
+ 1821 0127 49       		.uleb128 0x49
+ 1822 0128 13       		.uleb128 0x13
+ 1823 0129 02       		.uleb128 0x2
+ 1824 012a 17       		.uleb128 0x17
+ 1825 012b 00       		.byte	0
+ 1826 012c 00       		.byte	0
+ 1827 012d 17       		.uleb128 0x17
+ 1828 012e 898201   		.uleb128 0x4109
+ 1829 0131 01       		.byte	0x1
+ 1830 0132 11       		.uleb128 0x11
+ 1831 0133 01       		.uleb128 0x1
+ 1832 0134 31       		.uleb128 0x31
+ 1833 0135 13       		.uleb128 0x13
+ 1834 0136 01       		.uleb128 0x1
+ 1835 0137 13       		.uleb128 0x13
+ 1836 0138 00       		.byte	0
+ 1837 0139 00       		.byte	0
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 37
+
+
+ 1838 013a 18       		.uleb128 0x18
+ 1839 013b 8A8201   		.uleb128 0x410a
+ 1840 013e 00       		.byte	0
+ 1841 013f 02       		.uleb128 0x2
+ 1842 0140 18       		.uleb128 0x18
+ 1843 0141 9142     		.uleb128 0x2111
+ 1844 0143 18       		.uleb128 0x18
+ 1845 0144 00       		.byte	0
+ 1846 0145 00       		.byte	0
+ 1847 0146 19       		.uleb128 0x19
+ 1848 0147 898201   		.uleb128 0x4109
+ 1849 014a 01       		.byte	0x1
+ 1850 014b 11       		.uleb128 0x11
+ 1851 014c 01       		.uleb128 0x1
+ 1852 014d 31       		.uleb128 0x31
+ 1853 014e 13       		.uleb128 0x13
+ 1854 014f 00       		.byte	0
+ 1855 0150 00       		.byte	0
+ 1856 0151 1A       		.uleb128 0x1a
+ 1857 0152 34       		.uleb128 0x34
+ 1858 0153 00       		.byte	0
+ 1859 0154 03       		.uleb128 0x3
+ 1860 0155 0E       		.uleb128 0xe
+ 1861 0156 3A       		.uleb128 0x3a
+ 1862 0157 0B       		.uleb128 0xb
+ 1863 0158 3B       		.uleb128 0x3b
+ 1864 0159 0B       		.uleb128 0xb
+ 1865 015a 49       		.uleb128 0x49
+ 1866 015b 13       		.uleb128 0x13
+ 1867 015c 02       		.uleb128 0x2
+ 1868 015d 18       		.uleb128 0x18
+ 1869 015e 00       		.byte	0
+ 1870 015f 00       		.byte	0
+ 1871 0160 1B       		.uleb128 0x1b
+ 1872 0161 2E       		.uleb128 0x2e
+ 1873 0162 01       		.byte	0x1
+ 1874 0163 3F       		.uleb128 0x3f
+ 1875 0164 19       		.uleb128 0x19
+ 1876 0165 03       		.uleb128 0x3
+ 1877 0166 0E       		.uleb128 0xe
+ 1878 0167 3A       		.uleb128 0x3a
+ 1879 0168 0B       		.uleb128 0xb
+ 1880 0169 3B       		.uleb128 0x3b
+ 1881 016a 0B       		.uleb128 0xb
+ 1882 016b 27       		.uleb128 0x27
+ 1883 016c 19       		.uleb128 0x19
+ 1884 016d 49       		.uleb128 0x49
+ 1885 016e 13       		.uleb128 0x13
+ 1886 016f 8701     		.uleb128 0x87
+ 1887 0171 19       		.uleb128 0x19
+ 1888 0172 11       		.uleb128 0x11
+ 1889 0173 01       		.uleb128 0x1
+ 1890 0174 12       		.uleb128 0x12
+ 1891 0175 06       		.uleb128 0x6
+ 1892 0176 40       		.uleb128 0x40
+ 1893 0177 18       		.uleb128 0x18
+ 1894 0178 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 38
+
+
+ 1895 017a 19       		.uleb128 0x19
+ 1896 017b 01       		.uleb128 0x1
+ 1897 017c 13       		.uleb128 0x13
+ 1898 017d 00       		.byte	0
+ 1899 017e 00       		.byte	0
+ 1900 017f 1C       		.uleb128 0x1c
+ 1901 0180 34       		.uleb128 0x34
+ 1902 0181 00       		.byte	0
+ 1903 0182 03       		.uleb128 0x3
+ 1904 0183 0E       		.uleb128 0xe
+ 1905 0184 3A       		.uleb128 0x3a
+ 1906 0185 0B       		.uleb128 0xb
+ 1907 0186 3B       		.uleb128 0x3b
+ 1908 0187 05       		.uleb128 0x5
+ 1909 0188 49       		.uleb128 0x49
+ 1910 0189 13       		.uleb128 0x13
+ 1911 018a 3F       		.uleb128 0x3f
+ 1912 018b 19       		.uleb128 0x19
+ 1913 018c 3C       		.uleb128 0x3c
+ 1914 018d 19       		.uleb128 0x19
+ 1915 018e 00       		.byte	0
+ 1916 018f 00       		.byte	0
+ 1917 0190 1D       		.uleb128 0x1d
+ 1918 0191 21       		.uleb128 0x21
+ 1919 0192 00       		.byte	0
+ 1920 0193 49       		.uleb128 0x49
+ 1921 0194 13       		.uleb128 0x13
+ 1922 0195 2F       		.uleb128 0x2f
+ 1923 0196 0B       		.uleb128 0xb
+ 1924 0197 00       		.byte	0
+ 1925 0198 00       		.byte	0
+ 1926 0199 1E       		.uleb128 0x1e
+ 1927 019a 34       		.uleb128 0x34
+ 1928 019b 00       		.byte	0
+ 1929 019c 03       		.uleb128 0x3
+ 1930 019d 0E       		.uleb128 0xe
+ 1931 019e 3A       		.uleb128 0x3a
+ 1932 019f 0B       		.uleb128 0xb
+ 1933 01a0 3B       		.uleb128 0x3b
+ 1934 01a1 0B       		.uleb128 0xb
+ 1935 01a2 49       		.uleb128 0x49
+ 1936 01a3 13       		.uleb128 0x13
+ 1937 01a4 3F       		.uleb128 0x3f
+ 1938 01a5 19       		.uleb128 0x19
+ 1939 01a6 02       		.uleb128 0x2
+ 1940 01a7 18       		.uleb128 0x18
+ 1941 01a8 00       		.byte	0
+ 1942 01a9 00       		.byte	0
+ 1943 01aa 1F       		.uleb128 0x1f
+ 1944 01ab 26       		.uleb128 0x26
+ 1945 01ac 00       		.byte	0
+ 1946 01ad 49       		.uleb128 0x49
+ 1947 01ae 13       		.uleb128 0x13
+ 1948 01af 00       		.byte	0
+ 1949 01b0 00       		.byte	0
+ 1950 01b1 20       		.uleb128 0x20
+ 1951 01b2 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 39
+
+
+ 1952 01b3 00       		.byte	0
+ 1953 01b4 3F       		.uleb128 0x3f
+ 1954 01b5 19       		.uleb128 0x19
+ 1955 01b6 3C       		.uleb128 0x3c
+ 1956 01b7 19       		.uleb128 0x19
+ 1957 01b8 6E       		.uleb128 0x6e
+ 1958 01b9 0E       		.uleb128 0xe
+ 1959 01ba 03       		.uleb128 0x3
+ 1960 01bb 0E       		.uleb128 0xe
+ 1961 01bc 3A       		.uleb128 0x3a
+ 1962 01bd 0B       		.uleb128 0xb
+ 1963 01be 3B       		.uleb128 0x3b
+ 1964 01bf 0B       		.uleb128 0xb
+ 1965 01c0 00       		.byte	0
+ 1966 01c1 00       		.byte	0
+ 1967 01c2 00       		.byte	0
+ 1968              		.section	.debug_loc,"",%progbits
+ 1969              	.Ldebug_loc0:
+ 1970              	.LLST0:
+ 1971 0000 02000000 		.4byte	.LVL1
+ 1972 0004 06000000 		.4byte	.LVL2
+ 1973 0008 0200     		.2byte	0x2
+ 1974 000a 30       		.byte	0x30
+ 1975 000b 9F       		.byte	0x9f
+ 1976 000c 06000000 		.4byte	.LVL2
+ 1977 0010 1F000000 		.4byte	.LVL3-1
+ 1978 0014 0100     		.2byte	0x1
+ 1979 0016 50       		.byte	0x50
+ 1980 0017 34000000 		.4byte	.LVL4
+ 1981 001b 4C000000 		.4byte	.LFE64
+ 1982 001f 0100     		.2byte	0x1
+ 1983 0021 50       		.byte	0x50
+ 1984 0022 00000000 		.4byte	0
+ 1985 0026 00000000 		.4byte	0
+ 1986              	.LLST1:
+ 1987 002a 00000000 		.4byte	.LVL6
+ 1988 002e 06000000 		.4byte	.LVL8
+ 1989 0032 0100     		.2byte	0x1
+ 1990 0034 50       		.byte	0x50
+ 1991 0035 06000000 		.4byte	.LVL8
+ 1992 0039 10000000 		.4byte	.LVL11
+ 1993 003d 0300     		.2byte	0x3
+ 1994 003f 70       		.byte	0x70
+ 1995 0040 04       		.sleb128 4
+ 1996 0041 9F       		.byte	0x9f
+ 1997 0042 10000000 		.4byte	.LVL11
+ 1998 0046 18000000 		.4byte	.LFE67
+ 1999 004a 0100     		.2byte	0x1
+ 2000 004c 50       		.byte	0x50
+ 2001 004d 00000000 		.4byte	0
+ 2002 0051 00000000 		.4byte	0
+ 2003              	.LLST2:
+ 2004 0055 00000000 		.4byte	.LVL6
+ 2005 0059 06000000 		.4byte	.LVL8
+ 2006 005d 0100     		.2byte	0x1
+ 2007 005f 51       		.byte	0x51
+ 2008 0060 06000000 		.4byte	.LVL8
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 40
+
+
+ 2009 0064 0E000000 		.4byte	.LVL10
+ 2010 0068 0300     		.2byte	0x3
+ 2011 006a 71       		.byte	0x71
+ 2012 006b 04       		.sleb128 4
+ 2013 006c 9F       		.byte	0x9f
+ 2014 006d 0E000000 		.4byte	.LVL10
+ 2015 0071 18000000 		.4byte	.LFE67
+ 2016 0075 0100     		.2byte	0x1
+ 2017 0077 51       		.byte	0x51
+ 2018 0078 00000000 		.4byte	0
+ 2019 007c 00000000 		.4byte	0
+ 2020              	.LLST3:
+ 2021 0080 02000000 		.4byte	.LVL7
+ 2022 0084 06000000 		.4byte	.LVL8
+ 2023 0088 0200     		.2byte	0x2
+ 2024 008a 30       		.byte	0x30
+ 2025 008b 9F       		.byte	0x9f
+ 2026 008c 06000000 		.4byte	.LVL8
+ 2027 0090 18000000 		.4byte	.LFE67
+ 2028 0094 0100     		.2byte	0x1
+ 2029 0096 53       		.byte	0x53
+ 2030 0097 00000000 		.4byte	0
+ 2031 009b 00000000 		.4byte	0
+ 2032              	.LLST4:
+ 2033 009f 00000000 		.4byte	.LVL12
+ 2034 00a3 06000000 		.4byte	.LVL13
+ 2035 00a7 0100     		.2byte	0x1
+ 2036 00a9 50       		.byte	0x50
+ 2037 00aa 06000000 		.4byte	.LVL13
+ 2038 00ae 40000000 		.4byte	.LFE69
+ 2039 00b2 0400     		.2byte	0x4
+ 2040 00b4 F3       		.byte	0xf3
+ 2041 00b5 01       		.uleb128 0x1
+ 2042 00b6 50       		.byte	0x50
+ 2043 00b7 9F       		.byte	0x9f
+ 2044 00b8 00000000 		.4byte	0
+ 2045 00bc 00000000 		.4byte	0
+ 2046              	.LLST5:
+ 2047 00c0 00000000 		.4byte	.LVL12
+ 2048 00c4 0E000000 		.4byte	.LVL14
+ 2049 00c8 0100     		.2byte	0x1
+ 2050 00ca 51       		.byte	0x51
+ 2051 00cb 0E000000 		.4byte	.LVL14
+ 2052 00cf 40000000 		.4byte	.LFE69
+ 2053 00d3 0400     		.2byte	0x4
+ 2054 00d5 F3       		.byte	0xf3
+ 2055 00d6 01       		.uleb128 0x1
+ 2056 00d7 51       		.byte	0x51
+ 2057 00d8 9F       		.byte	0x9f
+ 2058 00d9 00000000 		.4byte	0
+ 2059 00dd 00000000 		.4byte	0
+ 2060              	.LLST6:
+ 2061 00e1 14000000 		.4byte	.LVL15
+ 2062 00e5 18000000 		.4byte	.LVL16
+ 2063 00e9 0100     		.2byte	0x1
+ 2064 00eb 51       		.byte	0x51
+ 2065 00ec 18000000 		.4byte	.LVL16
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 41
+
+
+ 2066 00f0 28000000 		.4byte	.LVL17
+ 2067 00f4 0100     		.2byte	0x1
+ 2068 00f6 53       		.byte	0x53
+ 2069 00f7 28000000 		.4byte	.LVL17
+ 2070 00fb 34000000 		.4byte	.LVL18
+ 2071 00ff 0100     		.2byte	0x1
+ 2072 0101 51       		.byte	0x51
+ 2073 0102 34000000 		.4byte	.LVL18
+ 2074 0106 40000000 		.4byte	.LFE69
+ 2075 010a 0900     		.2byte	0x9
+ 2076 010c 71       		.byte	0x71
+ 2077 010d 00       		.sleb128 0
+ 2078 010e 03       		.byte	0x3
+ 2079 010f 00000000 		.4byte	ws2812_struct
+ 2080 0113 1C       		.byte	0x1c
+ 2081 0114 9F       		.byte	0x9f
+ 2082 0115 00000000 		.4byte	0
+ 2083 0119 00000000 		.4byte	0
+ 2084              	.LLST7:
+ 2085 011d 00000000 		.4byte	.LVL19
+ 2086 0121 14000000 		.4byte	.LVL21
+ 2087 0125 0100     		.2byte	0x1
+ 2088 0127 50       		.byte	0x50
+ 2089 0128 14000000 		.4byte	.LVL21
+ 2090 012c 70000000 		.4byte	.LFE68
+ 2091 0130 0400     		.2byte	0x4
+ 2092 0132 F3       		.byte	0xf3
+ 2093 0133 01       		.uleb128 0x1
+ 2094 0134 50       		.byte	0x50
+ 2095 0135 9F       		.byte	0x9f
+ 2096 0136 00000000 		.4byte	0
+ 2097 013a 00000000 		.4byte	0
+ 2098              	.LLST8:
+ 2099 013e 00000000 		.4byte	.LVL19
+ 2100 0142 14000000 		.4byte	.LVL21
+ 2101 0146 0100     		.2byte	0x1
+ 2102 0148 51       		.byte	0x51
+ 2103 0149 14000000 		.4byte	.LVL21
+ 2104 014d 70000000 		.4byte	.LFE68
+ 2105 0151 0400     		.2byte	0x4
+ 2106 0153 F3       		.byte	0xf3
+ 2107 0154 01       		.uleb128 0x1
+ 2108 0155 51       		.byte	0x51
+ 2109 0156 9F       		.byte	0x9f
+ 2110 0157 00000000 		.4byte	0
+ 2111 015b 00000000 		.4byte	0
+ 2112              	.LLST9:
+ 2113 015f 00000000 		.4byte	.LVL19
+ 2114 0163 14000000 		.4byte	.LVL21
+ 2115 0167 0100     		.2byte	0x1
+ 2116 0169 52       		.byte	0x52
+ 2117 016a 14000000 		.4byte	.LVL21
+ 2118 016e 70000000 		.4byte	.LFE68
+ 2119 0172 0400     		.2byte	0x4
+ 2120 0174 F3       		.byte	0xf3
+ 2121 0175 01       		.uleb128 0x1
+ 2122 0176 52       		.byte	0x52
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 42
+
+
+ 2123 0177 9F       		.byte	0x9f
+ 2124 0178 00000000 		.4byte	0
+ 2125 017c 00000000 		.4byte	0
+ 2126              	.LLST10:
+ 2127 0180 00000000 		.4byte	.LVL19
+ 2128 0184 14000000 		.4byte	.LVL21
+ 2129 0188 0100     		.2byte	0x1
+ 2130 018a 53       		.byte	0x53
+ 2131 018b 14000000 		.4byte	.LVL21
+ 2132 018f 6C000000 		.4byte	.LVL31
+ 2133 0193 0100     		.2byte	0x1
+ 2134 0195 5A       		.byte	0x5a
+ 2135 0196 6C000000 		.4byte	.LVL31
+ 2136 019a 70000000 		.4byte	.LFE68
+ 2137 019e 0400     		.2byte	0x4
+ 2138 01a0 F3       		.byte	0xf3
+ 2139 01a1 01       		.uleb128 0x1
+ 2140 01a2 53       		.byte	0x53
+ 2141 01a3 9F       		.byte	0x9f
+ 2142 01a4 00000000 		.4byte	0
+ 2143 01a8 00000000 		.4byte	0
+ 2144              	.LLST11:
+ 2145 01ac 00000000 		.4byte	.LVL19
+ 2146 01b0 6C000000 		.4byte	.LVL31
+ 2147 01b4 0200     		.2byte	0x2
+ 2148 01b6 91       		.byte	0x91
+ 2149 01b7 00       		.sleb128 0
+ 2150 01b8 6C000000 		.4byte	.LVL31
+ 2151 01bc 70000000 		.4byte	.LFE68
+ 2152 01c0 0200     		.2byte	0x2
+ 2153 01c2 7D       		.byte	0x7d
+ 2154 01c3 00       		.sleb128 0
+ 2155 01c4 00000000 		.4byte	0
+ 2156 01c8 00000000 		.4byte	0
+ 2157              	.LLST12:
+ 2158 01cc 1C000000 		.4byte	.LVL22
+ 2159 01d0 64000000 		.4byte	.LVL30
+ 2160 01d4 0100     		.2byte	0x1
+ 2161 01d6 55       		.byte	0x55
+ 2162 01d7 00000000 		.4byte	0
+ 2163 01db 00000000 		.4byte	0
+ 2164              	.LLST13:
+ 2165 01df 10000000 		.4byte	.LVL20
+ 2166 01e3 14000000 		.4byte	.LVL21
+ 2167 01e7 0200     		.2byte	0x2
+ 2168 01e9 39       		.byte	0x39
+ 2169 01ea 9F       		.byte	0x9f
+ 2170 01eb 14000000 		.4byte	.LVL21
+ 2171 01ef 62000000 		.4byte	.LVL29
+ 2172 01f3 0100     		.2byte	0x1
+ 2173 01f5 56       		.byte	0x56
+ 2174 01f6 64000000 		.4byte	.LVL30
+ 2175 01fa 6C000000 		.4byte	.LVL31
+ 2176 01fe 0100     		.2byte	0x1
+ 2177 0200 56       		.byte	0x56
+ 2178 0201 00000000 		.4byte	0
+ 2179 0205 00000000 		.4byte	0
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 43
+
+
+ 2180              	.LLST14:
+ 2181 0209 1C000000 		.4byte	.LVL22
+ 2182 020d 20000000 		.4byte	.LVL23
+ 2183 0211 0100     		.2byte	0x1
+ 2184 0213 58       		.byte	0x58
+ 2185 0214 20000000 		.4byte	.LVL23
+ 2186 0218 52000000 		.4byte	.LVL27
+ 2187 021c 0100     		.2byte	0x1
+ 2188 021e 54       		.byte	0x54
+ 2189 021f 54000000 		.4byte	.LVL28
+ 2190 0223 64000000 		.4byte	.LVL30
+ 2191 0227 0100     		.2byte	0x1
+ 2192 0229 54       		.byte	0x54
+ 2193 022a 00000000 		.4byte	0
+ 2194 022e 00000000 		.4byte	0
+ 2195              	.LLST15:
+ 2196 0232 00000000 		.4byte	.LVL32
+ 2197 0236 12000000 		.4byte	.LVL34
+ 2198 023a 0100     		.2byte	0x1
+ 2199 023c 50       		.byte	0x50
+ 2200 023d 12000000 		.4byte	.LVL34
+ 2201 0241 A4000000 		.4byte	.LVL41
+ 2202 0245 0100     		.2byte	0x1
+ 2203 0247 58       		.byte	0x58
+ 2204 0248 A4000000 		.4byte	.LVL41
+ 2205 024c AC000000 		.4byte	.LFE66
+ 2206 0250 0400     		.2byte	0x4
+ 2207 0252 F3       		.byte	0xf3
+ 2208 0253 01       		.uleb128 0x1
+ 2209 0254 50       		.byte	0x50
+ 2210 0255 9F       		.byte	0x9f
+ 2211 0256 00000000 		.4byte	0
+ 2212 025a 00000000 		.4byte	0
+ 2213              	.LLST16:
+ 2214 025e 00000000 		.4byte	.LVL32
+ 2215 0262 12000000 		.4byte	.LVL34
+ 2216 0266 0100     		.2byte	0x1
+ 2217 0268 51       		.byte	0x51
+ 2218 0269 12000000 		.4byte	.LVL34
+ 2219 026d AC000000 		.4byte	.LFE66
+ 2220 0271 0400     		.2byte	0x4
+ 2221 0273 F3       		.byte	0xf3
+ 2222 0274 01       		.uleb128 0x1
+ 2223 0275 51       		.byte	0x51
+ 2224 0276 9F       		.byte	0x9f
+ 2225 0277 00000000 		.4byte	0
+ 2226 027b 00000000 		.4byte	0
+ 2227              	.LLST17:
+ 2228 027f 00000000 		.4byte	.LVL32
+ 2229 0283 12000000 		.4byte	.LVL34
+ 2230 0287 0100     		.2byte	0x1
+ 2231 0289 52       		.byte	0x52
+ 2232 028a 12000000 		.4byte	.LVL34
+ 2233 028e A4000000 		.4byte	.LVL41
+ 2234 0292 0100     		.2byte	0x1
+ 2235 0294 57       		.byte	0x57
+ 2236 0295 A4000000 		.4byte	.LVL41
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 44
+
+
+ 2237 0299 AC000000 		.4byte	.LFE66
+ 2238 029d 0400     		.2byte	0x4
+ 2239 029f F3       		.byte	0xf3
+ 2240 02a0 01       		.uleb128 0x1
+ 2241 02a1 52       		.byte	0x52
+ 2242 02a2 9F       		.byte	0x9f
+ 2243 02a3 00000000 		.4byte	0
+ 2244 02a7 00000000 		.4byte	0
+ 2245              	.LLST18:
+ 2246 02ab 00000000 		.4byte	.LVL32
+ 2247 02af 12000000 		.4byte	.LVL34
+ 2248 02b3 0100     		.2byte	0x1
+ 2249 02b5 53       		.byte	0x53
+ 2250 02b6 12000000 		.4byte	.LVL34
+ 2251 02ba A4000000 		.4byte	.LVL41
+ 2252 02be 0100     		.2byte	0x1
+ 2253 02c0 56       		.byte	0x56
+ 2254 02c1 A4000000 		.4byte	.LVL41
+ 2255 02c5 AC000000 		.4byte	.LFE66
+ 2256 02c9 0400     		.2byte	0x4
+ 2257 02cb F3       		.byte	0xf3
+ 2258 02cc 01       		.uleb128 0x1
+ 2259 02cd 53       		.byte	0x53
+ 2260 02ce 9F       		.byte	0x9f
+ 2261 02cf 00000000 		.4byte	0
+ 2262 02d3 00000000 		.4byte	0
+ 2263              	.LLST19:
+ 2264 02d7 0E000000 		.4byte	.LVL33
+ 2265 02db 12000000 		.4byte	.LVL34
+ 2266 02df 0200     		.2byte	0x2
+ 2267 02e1 30       		.byte	0x30
+ 2268 02e2 9F       		.byte	0x9f
+ 2269 02e3 12000000 		.4byte	.LVL34
+ 2270 02e7 52000000 		.4byte	.LVL39
+ 2271 02eb 0100     		.2byte	0x1
+ 2272 02ed 54       		.byte	0x54
+ 2273 02ee 54000000 		.4byte	.LVL40
+ 2274 02f2 A4000000 		.4byte	.LVL41
+ 2275 02f6 0100     		.2byte	0x1
+ 2276 02f8 54       		.byte	0x54
+ 2277 02f9 00000000 		.4byte	0
+ 2278 02fd 00000000 		.4byte	0
+ 2279              	.LLST20:
+ 2280 0301 1A000000 		.4byte	.LVL35
+ 2281 0305 4A000000 		.4byte	.LVL37
+ 2282 0309 0100     		.2byte	0x1
+ 2283 030b 52       		.byte	0x52
+ 2284 030c 00000000 		.4byte	0
+ 2285 0310 00000000 		.4byte	0
+ 2286              	.LLST21:
+ 2287 0314 02000000 		.4byte	.LVL43
+ 2288 0318 06000000 		.4byte	.LVL44
+ 2289 031c 0200     		.2byte	0x2
+ 2290 031e 30       		.byte	0x30
+ 2291 031f 9F       		.byte	0x9f
+ 2292 0320 06000000 		.4byte	.LVL44
+ 2293 0324 28000000 		.4byte	.LVL45
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 45
+
+
+ 2294 0328 0100     		.2byte	0x1
+ 2295 032a 53       		.byte	0x53
+ 2296 032b 2A000000 		.4byte	.LVL46
+ 2297 032f 38000000 		.4byte	.LFE70
+ 2298 0333 0100     		.2byte	0x1
+ 2299 0335 53       		.byte	0x53
+ 2300 0336 00000000 		.4byte	0
+ 2301 033a 00000000 		.4byte	0
+ 2302              	.LLST22:
+ 2303 033e 24000000 		.4byte	.LVL51
+ 2304 0342 26000000 		.4byte	.LVL52
+ 2305 0346 0200     		.2byte	0x2
+ 2306 0348 30       		.byte	0x30
+ 2307 0349 9F       		.byte	0x9f
+ 2308 034a 26000000 		.4byte	.LVL52
+ 2309 034e 2A000000 		.4byte	.LVL53
+ 2310 0352 0100     		.2byte	0x1
+ 2311 0354 54       		.byte	0x54
+ 2312 0355 2A000000 		.4byte	.LVL53
+ 2313 0359 2E000000 		.4byte	.LVL54
+ 2314 035d 0100     		.2byte	0x1
+ 2315 035f 53       		.byte	0x53
+ 2316 0360 2E000000 		.4byte	.LVL54
+ 2317 0364 40000000 		.4byte	.LVL56
+ 2318 0368 0200     		.2byte	0x2
+ 2319 036a 30       		.byte	0x30
+ 2320 036b 9F       		.byte	0x9f
+ 2321 036c 42000000 		.4byte	.LVL57
+ 2322 0370 7C000000 		.4byte	.LFE65
+ 2323 0374 0100     		.2byte	0x1
+ 2324 0376 54       		.byte	0x54
+ 2325 0377 00000000 		.4byte	0
+ 2326 037b 00000000 		.4byte	0
+ 2327              		.section	.debug_aranges,"",%progbits
+ 2328 0000 54000000 		.4byte	0x54
+ 2329 0004 0200     		.2byte	0x2
+ 2330 0006 00000000 		.4byte	.Ldebug_info0
+ 2331 000a 04       		.byte	0x4
+ 2332 000b 00       		.byte	0
+ 2333 000c 0000     		.2byte	0
+ 2334 000e 0000     		.2byte	0
+ 2335 0010 00000000 		.4byte	.LFB63
+ 2336 0014 28000000 		.4byte	.LFE63-.LFB63
+ 2337 0018 00000000 		.4byte	.LFB64
+ 2338 001c 4C000000 		.4byte	.LFE64-.LFB64
+ 2339 0020 00000000 		.4byte	.LFB67
+ 2340 0024 18000000 		.4byte	.LFE67-.LFB67
+ 2341 0028 00000000 		.4byte	.LFB69
+ 2342 002c 40000000 		.4byte	.LFE69-.LFB69
+ 2343 0030 00000000 		.4byte	.LFB68
+ 2344 0034 70000000 		.4byte	.LFE68-.LFB68
+ 2345 0038 00000000 		.4byte	.LFB66
+ 2346 003c AC000000 		.4byte	.LFE66-.LFB66
+ 2347 0040 00000000 		.4byte	.LFB70
+ 2348 0044 38000000 		.4byte	.LFE70-.LFB70
+ 2349 0048 00000000 		.4byte	.LFB65
+ 2350 004c 7C000000 		.4byte	.LFE65-.LFB65
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 46
+
+
+ 2351 0050 00000000 		.4byte	0
+ 2352 0054 00000000 		.4byte	0
+ 2353              		.section	.debug_ranges,"",%progbits
+ 2354              	.Ldebug_ranges0:
+ 2355 0000 00000000 		.4byte	.LFB63
+ 2356 0004 28000000 		.4byte	.LFE63
+ 2357 0008 00000000 		.4byte	.LFB64
+ 2358 000c 4C000000 		.4byte	.LFE64
+ 2359 0010 00000000 		.4byte	.LFB67
+ 2360 0014 18000000 		.4byte	.LFE67
+ 2361 0018 00000000 		.4byte	.LFB69
+ 2362 001c 40000000 		.4byte	.LFE69
+ 2363 0020 00000000 		.4byte	.LFB68
+ 2364 0024 70000000 		.4byte	.LFE68
+ 2365 0028 00000000 		.4byte	.LFB66
+ 2366 002c AC000000 		.4byte	.LFE66
+ 2367 0030 00000000 		.4byte	.LFB70
+ 2368 0034 38000000 		.4byte	.LFE70
+ 2369 0038 00000000 		.4byte	.LFB65
+ 2370 003c 7C000000 		.4byte	.LFE65
+ 2371 0040 00000000 		.4byte	0
+ 2372 0044 00000000 		.4byte	0
+ 2373              		.section	.debug_line,"",%progbits
+ 2374              	.Ldebug_line0:
+ 2375 0000 E7020000 		.section	.debug_str,"MS",%progbits,1
+ 2375      02009001 
+ 2375      00000201 
+ 2375      FB0E0D00 
+ 2375      01010101 
+ 2376              	.LASF46:
+ 2377 0000 74657874 		.ascii	"text\000"
+ 2377      00
+ 2378              	.LASF36:
+ 2379 0005 6261636B 		.ascii	"background_color\000"
+ 2379      67726F75 
+ 2379      6E645F63 
+ 2379      6F6C6F72 
+ 2379      00
+ 2380              	.LASF26:
+ 2381 0016 57533238 		.ascii	"WS2812_HANDLER\000"
+ 2381      31325F48 
+ 2381      414E444C 
+ 2381      455200
+ 2382              	.LASF47:
+ 2383 0025 666F6E74 		.ascii	"font\000"
+ 2383      00
+ 2384              	.LASF41:
+ 2385 002a 706F696E 		.ascii	"point_position\000"
+ 2385      745F706F 
+ 2385      73697469 
+ 2385      6F6E00
+ 2386              	.LASF29:
+ 2387 0039 636F6C6F 		.ascii	"color\000"
+ 2387      7200
+ 2388              	.LASF20:
+ 2389 003f 6C6F6E67 		.ascii	"long double\000"
+ 2389      20646F75 
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 47
+
+
+ 2389      626C6500 
+ 2390              	.LASF44:
+ 2391 004b 64656C61 		.ascii	"delay\000"
+ 2391      7900
+ 2392              	.LASF54:
+ 2393 0051 6973725F 		.ascii	"isr_timer_StartEx\000"
+ 2393      74696D65 
+ 2393      725F5374 
+ 2393      61727445 
+ 2393      7800
+ 2394              	.LASF2:
+ 2395 0063 73686F72 		.ascii	"short int\000"
+ 2395      7420696E 
+ 2395      7400
+ 2396              	.LASF12:
+ 2397 006d 75696E74 		.ascii	"uint16\000"
+ 2397      313600
+ 2398              	.LASF15:
+ 2399 0074 696E7431 		.ascii	"int16\000"
+ 2399      3600
+ 2400              	.LASF11:
+ 2401 007a 75696E74 		.ascii	"uint8\000"
+ 2401      3800
+ 2402              	.LASF48:
+ 2403 0080 77733238 		.ascii	"ws2812_struct\000"
+ 2403      31325F73 
+ 2403      74727563 
+ 2403      7400
+ 2404              	.LASF49:
+ 2405 008e 6973725F 		.ascii	"isr_ws2812_Enable\000"
+ 2405      77733238 
+ 2405      31325F45 
+ 2405      6E61626C 
+ 2405      6500
+ 2406              	.LASF16:
+ 2407 00a0 666C6F61 		.ascii	"float\000"
+ 2407      7400
+ 2408              	.LASF57:
+ 2409 00a6 443A5C31 		.ascii	"D:\\1_work\\my_project\\ws2812\\psoc5lp\\ws2812.cyd"
+ 2409      5F776F72 
+ 2409      6B5C6D79 
+ 2409      5F70726F 
+ 2409      6A656374 
+ 2410 00d4 736E00   		.ascii	"sn\000"
+ 2411              	.LASF32:
+ 2412 00d7 636F6C75 		.ascii	"column_display\000"
+ 2412      6D6E5F64 
+ 2412      6973706C 
+ 2412      617900
+ 2413              	.LASF6:
+ 2414 00e6 6C6F6E67 		.ascii	"long long int\000"
+ 2414      206C6F6E 
+ 2414      6720696E 
+ 2414      7400
+ 2415              	.LASF35:
+ 2416 00f4 63686172 		.ascii	"char_color\000"
+ 2416      5F636F6C 
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 48
+
+
+ 2416      6F7200
+ 2417              	.LASF14:
+ 2418 00ff 696E7438 		.ascii	"int8\000"
+ 2418      00
+ 2419              	.LASF31:
+ 2420 0104 77726974 		.ascii	"writeChar\000"
+ 2420      65436861 
+ 2420      7200
+ 2421              	.LASF38:
+ 2422 010e 7363726F 		.ascii	"scrolStr\000"
+ 2422      6C537472 
+ 2422      00
+ 2423              	.LASF4:
+ 2424 0117 6C6F6E67 		.ascii	"long int\000"
+ 2424      20696E74 
+ 2424      00
+ 2425              	.LASF37:
+ 2426 0120 73686966 		.ascii	"shift\000"
+ 2426      7400
+ 2427              	.LASF33:
+ 2428 0126 636F6C75 		.ascii	"column_char\000"
+ 2428      6D6E5F63 
+ 2428      68617200 
+ 2429              	.LASF39:
+ 2430 0132 62656769 		.ascii	"begin_position\000"
+ 2430      6E5F706F 
+ 2430      73697469 
+ 2430      6F6E00
+ 2431              	.LASF42:
+ 2432 0141 6964785F 		.ascii	"idx_char\000"
+ 2432      63686172 
+ 2432      00
+ 2433              	.LASF1:
+ 2434 014a 756E7369 		.ascii	"unsigned char\000"
+ 2434      676E6564 
+ 2434      20636861 
+ 2434      7200
+ 2435              	.LASF0:
+ 2436 0158 7369676E 		.ascii	"signed char\000"
+ 2436      65642063 
+ 2436      68617200 
+ 2437              	.LASF7:
+ 2438 0164 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2438      206C6F6E 
+ 2438      6720756E 
+ 2438      7369676E 
+ 2438      65642069 
+ 2439              	.LASF8:
+ 2440 017b 756E7369 		.ascii	"unsigned int\000"
+ 2440      676E6564 
+ 2440      20696E74 
+ 2440      00
+ 2441              	.LASF24:
+ 2442 0188 62756666 		.ascii	"buffer_ptr\000"
+ 2442      65725F70 
+ 2442      747200
+ 2443              	.LASF34:
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 49
+
+
+ 2444 0193 69645F63 		.ascii	"id_char\000"
+ 2444      68617200 
+ 2445              	.LASF43:
+ 2446 019b 66696C6C 		.ascii	"fillScreen\000"
+ 2446      53637265 
+ 2446      656E00
+ 2447              	.LASF23:
+ 2448 01a6 64726177 		.ascii	"draw_buffer\000"
+ 2448      5F627566 
+ 2448      66657200 
+ 2449              	.LASF3:
+ 2450 01b2 73686F72 		.ascii	"short unsigned int\000"
+ 2450      7420756E 
+ 2450      7369676E 
+ 2450      65642069 
+ 2450      6E7400
+ 2451              	.LASF28:
+ 2452 01c5 77726974 		.ascii	"writePixelRGB\000"
+ 2452      65506978 
+ 2452      656C5247 
+ 2452      4200
+ 2453              	.LASF18:
+ 2454 01d3 63686172 		.ascii	"char\000"
+ 2454      00
+ 2455              	.LASF59:
+ 2456 01d8 6D61696E 		.ascii	"main\000"
+ 2456      00
+ 2457              	.LASF40:
+ 2458 01dd 696E6465 		.ascii	"index_position\000"
+ 2458      785F706F 
+ 2458      73697469 
+ 2458      6F6E00
+ 2459              	.LASF10:
+ 2460 01ec 696E7433 		.ascii	"int32_t\000"
+ 2460      325F7400 
+ 2461              	.LASF53:
+ 2462 01f4 6973725F 		.ascii	"isr_ws2812_StartEx\000"
+ 2462      77733238 
+ 2462      31325F53 
+ 2462      74617274 
+ 2462      457800
+ 2463              	.LASF52:
+ 2464 0207 77733238 		.ascii	"ws2812_1_Start\000"
+ 2464      31325F31 
+ 2464      5F537461 
+ 2464      727400
+ 2465              	.LASF51:
+ 2466 0216 54696D65 		.ascii	"Timer_1_Start\000"
+ 2466      725F315F 
+ 2466      53746172 
+ 2466      7400
+ 2467              	.LASF22:
+ 2468 0224 62756666 		.ascii	"buffer\000"
+ 2468      657200
+ 2469              	.LASF58:
+ 2470 022b 77616974 		.ascii	"wait_tx\000"
+ 2470      5F747800 
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 50
+
+
+ 2471              	.LASF56:
+ 2472 0233 6D61696E 		.ascii	"main.c\000"
+ 2472      2E6300
+ 2473              	.LASF19:
+ 2474 023a 72656738 		.ascii	"reg8\000"
+ 2474      00
+ 2475              	.LASF5:
+ 2476 023f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2476      20756E73 
+ 2476      69676E65 
+ 2476      6420696E 
+ 2476      7400
+ 2477              	.LASF30:
+ 2478 0251 706F696E 		.ascii	"point\000"
+ 2478      7400
+ 2479              	.LASF13:
+ 2480 0257 75696E74 		.ascii	"uint32\000"
+ 2480      333200
+ 2481              	.LASF25:
+ 2482 025e 54494D45 		.ascii	"TIMER100HZ_HANDLER\000"
+ 2482      52313030 
+ 2482      485A5F48 
+ 2482      414E444C 
+ 2482      455200
+ 2483              	.LASF27:
+ 2484 0271 636F7079 		.ascii	"copyBuffer\000"
+ 2484      42756666 
+ 2484      657200
+ 2485              	.LASF9:
+ 2486 027c 5F5F696E 		.ascii	"__int32_t\000"
+ 2486      7433325F 
+ 2486      7400
+ 2487              	.LASF21:
+ 2488 0286 73697A65 		.ascii	"sizetype\000"
+ 2488      74797065 
+ 2488      00
+ 2489              	.LASF17:
+ 2490 028f 646F7562 		.ascii	"double\000"
+ 2490      6C6500
+ 2491              	.LASF50:
+ 2492 0296 6973725F 		.ascii	"isr_ws2812_Disable\000"
+ 2492      77733238 
+ 2492      31325F44 
+ 2492      69736162 
+ 2492      6C6500
+ 2493              	.LASF45:
+ 2494 02a9 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2494      52784275 
+ 2494      66666572 
+ 2494      00
+ 2495              	.LASF55:
+ 2496 02b6 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2496      43313120 
+ 2496      352E342E 
+ 2496      31203230 
+ 2496      31363036 
+ 2497 02e9 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccazulGc.s 			page 51
+
+
+ 2497      20726576 
+ 2497      6973696F 
+ 2497      6E203233 
+ 2497      37373135 
+ 2498 031c 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2498      66756E63 
+ 2498      74696F6E 
+ 2498      2D736563 
+ 2498      74696F6E 
+ 2499              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,21 @@
+# ws2812
+# 2021-04-19 20:06:39Z
+
+# IO_0@[IOP=(1)][IoId=(0)] is reserved: SWDDebugEnabled
+dont_use_io iocell 1 0
+# IO_1@[IOP=(1)][IoId=(1)] is reserved: SWDDebugEnabled
+dont_use_io iocell 1 1
+# IO_3@[IOP=(1)][IoId=(3)] is reserved: SWDDebugEnabled
+dont_use_io iocell 1 3
+set_location "ClockBlock" clockblockcell -1 -1 0
+set_io "ws2812_port(0)" iocell 1 7
+set_location "\ws2812_1:udb8:u0\" 0 1 2
+set_location "isr_ws2812" interrupt -1 -1 0
+set_location "isr_timer" interrupt -1 -1 17
+set_location "\Timer_1:TimerHW\" timercell -1 -1 0
+set_location "__ONE__" 2 4 0 1
+set_location "Net_3" 0 1 0 0
+set_location "\ws2812_1:state_2\" 1 1 1 0
+set_location "\ws2812_1:state_1\" 1 1 0 0
+set_location "\ws2812_1:state_0\" 0 1 1 0
+set_location "\ws2812_1:send_tic\" 0 1 0 1
