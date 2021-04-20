@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccPD3VlM.s 			page 1
 
 
    1              		.syntax unified
@@ -15,60 +15,60 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
   14              		.syntax unified
-  15              		.file	"ws2812_1.c"
+  15              		.file	"ws2812_2.c"
   16              		.text
   17              	.Ltext0:
   18              		.cfi_sections	.debug_frame
-  19              		.section	.text.ws2812_1_Start,"ax",%progbits
+  19              		.section	.text.ws2812_2_Start,"ax",%progbits
   20              		.align	2
-  21              		.global	ws2812_1_Start
+  21              		.global	ws2812_2_Start
   22              		.thumb
   23              		.thumb_func
-  24              		.type	ws2812_1_Start, %function
-  25              	ws2812_1_Start:
+  24              		.type	ws2812_2_Start, %function
+  25              	ws2812_2_Start:
   26              	.LFB0:
-  27              		.file 1 "Generated_Source\\PSoC5\\ws2812_1.c"
-   1:Generated_Source\PSoC5/ws2812_1.c **** /* ========================================
-   2:Generated_Source\PSoC5/ws2812_1.c ****  *
-   3:Generated_Source\PSoC5/ws2812_1.c ****  * Copyright YOUR COMPANY, THE YEAR
-   4:Generated_Source\PSoC5/ws2812_1.c ****  * All Rights Reserved
-   5:Generated_Source\PSoC5/ws2812_1.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
-   6:Generated_Source\PSoC5/ws2812_1.c ****  *
-   7:Generated_Source\PSoC5/ws2812_1.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
-   8:Generated_Source\PSoC5/ws2812_1.c ****  * WHICH IS THE PROPERTY OF your company.
-   9:Generated_Source\PSoC5/ws2812_1.c ****  *
-  10:Generated_Source\PSoC5/ws2812_1.c ****  * ========================================
-  11:Generated_Source\PSoC5/ws2812_1.c **** */
-  12:Generated_Source\PSoC5/ws2812_1.c **** #include "ws2812_1.h"
-  13:Generated_Source\PSoC5/ws2812_1.c **** 
-  14:Generated_Source\PSoC5/ws2812_1.c **** void ws2812_1_Start(void)
-  15:Generated_Source\PSoC5/ws2812_1.c **** {
+  27              		.file 1 "Generated_Source\\PSoC5\\ws2812_2.c"
+   1:Generated_Source\PSoC5/ws2812_2.c **** /* ========================================
+   2:Generated_Source\PSoC5/ws2812_2.c ****  *
+   3:Generated_Source\PSoC5/ws2812_2.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:Generated_Source\PSoC5/ws2812_2.c ****  * All Rights Reserved
+   5:Generated_Source\PSoC5/ws2812_2.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:Generated_Source\PSoC5/ws2812_2.c ****  *
+   7:Generated_Source\PSoC5/ws2812_2.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:Generated_Source\PSoC5/ws2812_2.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:Generated_Source\PSoC5/ws2812_2.c ****  *
+  10:Generated_Source\PSoC5/ws2812_2.c ****  * ========================================
+  11:Generated_Source\PSoC5/ws2812_2.c **** */
+  12:Generated_Source\PSoC5/ws2812_2.c **** #include "ws2812_2.h"
+  13:Generated_Source\PSoC5/ws2812_2.c **** 
+  14:Generated_Source\PSoC5/ws2812_2.c **** void ws2812_2_Start(void)
+  15:Generated_Source\PSoC5/ws2812_2.c **** {
   28              		.loc 1 15 0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
   32              		@ link register save eliminated.
-  16:Generated_Source\PSoC5/ws2812_1.c ****     ws2812_1_shift_mask=ws2812_1_SHIFT_MASK;
+  16:Generated_Source\PSoC5/ws2812_2.c ****     ws2812_2_shift_mask=ws2812_2_SHIFT_MASK;
   33              		.loc 1 16 0
   34 0000 8022     		movs	r2, #128
   35 0002 034B     		ldr	r3, .L2
   36 0004 1A70     		strb	r2, [r3]
-  17:Generated_Source\PSoC5/ws2812_1.c ****     ws2812_1_bit_cnt=ws2812_1_NUM_SHIFT_BITS;
+  17:Generated_Source\PSoC5/ws2812_2.c ****     ws2812_2_bit_cnt=ws2812_2_NUM_SHIFT_BITS;
   37              		.loc 1 17 0
   38 0006 0822     		movs	r2, #8
   39 0008 1033     		adds	r3, r3, #16
   40 000a 1A70     		strb	r2, [r3]
-ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 2
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccPD3VlM.s 			page 2
 
 
   41 000c 7047     		bx	lr
   42              	.L3:
   43 000e 00BF     		.align	2
   44              	.L2:
-  45 0010 29650040 		.word	1073767721
+  45 0010 27650040 		.word	1073767719
   46              		.cfi_endproc
   47              	.LFE0:
-  48              		.size	ws2812_1_Start, .-ws2812_1_Start
+  48              		.size	ws2812_2_Start, .-ws2812_2_Start
   49              		.text
   50              	.Letext0:
   51              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
@@ -79,10 +79,10 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
   56 0006 00000000 		.4byte	.Ldebug_abbrev0
   57 000a 04       		.byte	0x4
   58 000b 01       		.uleb128 0x1
-  59 000c 23000000 		.4byte	.LASF14
+  59 000c 14000000 		.4byte	.LASF14
   60 0010 0C       		.byte	0xc
-  61 0011 E2000000 		.4byte	.LASF15
-  62 0015 28010000 		.4byte	.LASF16
+  61 0011 5A010000 		.4byte	.LASF15
+  62 0015 06010000 		.4byte	.LASF16
   63 0019 00000000 		.4byte	.Ldebug_ranges0+0
   64 001d 00000000 		.4byte	0
   65 0021 00000000 		.4byte	.Ldebug_line0
@@ -93,15 +93,15 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
   70 002c 02       		.uleb128 0x2
   71 002d 01       		.byte	0x1
   72 002e 08       		.byte	0x8
-  73 002f 15000000 		.4byte	.LASF1
+  73 002f 06000000 		.4byte	.LASF1
   74 0033 02       		.uleb128 0x2
   75 0034 02       		.byte	0x2
   76 0035 05       		.byte	0x5
-  77 0036 6C010000 		.4byte	.LASF2
+  77 0036 4A010000 		.4byte	.LASF2
   78 003a 02       		.uleb128 0x2
   79 003b 02       		.byte	0x2
   80 003c 07       		.byte	0x7
-  81 003d C8000000 		.4byte	.LASF3
+  81 003d B9000000 		.4byte	.LASF3
   82 0041 02       		.uleb128 0x2
   83 0042 04       		.byte	0x4
   84 0043 05       		.byte	0x5
@@ -109,16 +109,16 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
   86 0048 02       		.uleb128 0x2
   87 0049 04       		.byte	0x4
   88 004a 07       		.byte	0x7
-  89 004b B6000000 		.4byte	.LASF5
+  89 004b A7000000 		.4byte	.LASF5
   90 004f 02       		.uleb128 0x2
   91 0050 08       		.byte	0x8
   92 0051 05       		.byte	0x5
-  93 0052 59010000 		.4byte	.LASF6
+  93 0052 37010000 		.4byte	.LASF6
   94 0056 02       		.uleb128 0x2
   95 0057 08       		.byte	0x8
   96 0058 07       		.byte	0x7
-  97 0059 11010000 		.4byte	.LASF7
-ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 3
+  97 0059 EF000000 		.4byte	.LASF7
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccPD3VlM.s 			page 3
 
 
   98 005d 03       		.uleb128 0x3
@@ -128,9 +128,9 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
  102 0064 02       		.uleb128 0x2
  103 0065 04       		.byte	0x4
  104 0066 07       		.byte	0x7
- 105 0067 04010000 		.4byte	.LASF8
+ 105 0067 E2000000 		.4byte	.LASF8
  106 006b 04       		.uleb128 0x4
- 107 006c 76010000 		.4byte	.LASF12
+ 107 006c 54010000 		.4byte	.LASF12
  108 0070 02       		.byte	0x2
  109 0071 E901     		.2byte	0x1e9
  110 0073 2C000000 		.4byte	0x2c
@@ -145,16 +145,16 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
  119 0085 02       		.uleb128 0x2
  120 0086 01       		.byte	0x1
  121 0087 08       		.byte	0x8
- 122 0088 67010000 		.4byte	.LASF11
+ 122 0088 45010000 		.4byte	.LASF11
  123 008c 04       		.uleb128 0x4
- 124 008d B1000000 		.4byte	.LASF13
+ 124 008d A2000000 		.4byte	.LASF13
  125 0091 02       		.byte	0x2
  126 0092 9302     		.2byte	0x293
  127 0094 98000000 		.4byte	0x98
  128 0098 05       		.uleb128 0x5
  129 0099 6B000000 		.4byte	0x6b
  130 009d 06       		.uleb128 0x6
- 131 009e 06000000 		.4byte	.LASF17
+ 131 009e CC000000 		.4byte	.LASF17
  132 00a2 01       		.byte	0x1
  133 00a3 0E       		.byte	0xe
  134 00a4 00000000 		.4byte	.LFB0
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
  152 000b 55       		.uleb128 0x55
  153 000c 17       		.uleb128 0x17
  154 000d 11       		.uleb128 0x11
-ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 4
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccPD3VlM.s 			page 4
 
 
  155 000e 01       		.uleb128 0x1
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
  209 0044 3A       		.uleb128 0x3a
  210 0045 0B       		.uleb128 0xb
  211 0046 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 5
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccPD3VlM.s 			page 5
 
 
  212 0047 0B       		.uleb128 0xb
@@ -283,95 +283,95 @@ ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 1
  247              	.LASF9:
  248 0000 666C6F61 		.ascii	"float\000"
  248      7400
- 249              	.LASF17:
- 250 0006 77733238 		.ascii	"ws2812_1_Start\000"
- 250      31325F31 
- 250      5F537461 
- 250      727400
- 251              	.LASF1:
- 252 0015 756E7369 		.ascii	"unsigned char\000"
- 252      676E6564 
- 252      20636861 
- 252      7200
- 253              	.LASF14:
- 254 0023 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 254      43313120 
- 254      352E342E 
- 254      31203230 
-ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 6
+ 249              	.LASF1:
+ 250 0006 756E7369 		.ascii	"unsigned char\000"
+ 250      676E6564 
+ 250      20636861 
+ 250      7200
+ 251              	.LASF14:
+ 252 0014 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 252      43313120 
+ 252      352E342E 
+ 252      31203230 
+ 252      31363036 
+ 253 0047 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 253      20726576 
+ 253      6973696F 
+ 253      6E203233 
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccPD3VlM.s 			page 6
 
 
- 254      31363036 
- 255 0056 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 255      20726576 
- 255      6973696F 
- 255      6E203233 
- 255      37373135 
- 256 0089 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 256      66756E63 
- 256      74696F6E 
- 256      2D736563 
- 256      74696F6E 
- 257              	.LASF13:
- 258 00b1 72656738 		.ascii	"reg8\000"
- 258      00
- 259              	.LASF5:
- 260 00b6 6C6F6E67 		.ascii	"long unsigned int\000"
- 260      20756E73 
- 260      69676E65 
- 260      6420696E 
- 260      7400
- 261              	.LASF3:
- 262 00c8 73686F72 		.ascii	"short unsigned int\000"
- 262      7420756E 
- 262      7369676E 
- 262      65642069 
- 262      6E7400
+ 253      37373135 
+ 254 007a 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 254      66756E63 
+ 254      74696F6E 
+ 254      2D736563 
+ 254      74696F6E 
+ 255              	.LASF13:
+ 256 00a2 72656738 		.ascii	"reg8\000"
+ 256      00
+ 257              	.LASF5:
+ 258 00a7 6C6F6E67 		.ascii	"long unsigned int\000"
+ 258      20756E73 
+ 258      69676E65 
+ 258      6420696E 
+ 258      7400
+ 259              	.LASF3:
+ 260 00b9 73686F72 		.ascii	"short unsigned int\000"
+ 260      7420756E 
+ 260      7369676E 
+ 260      65642069 
+ 260      6E7400
+ 261              	.LASF17:
+ 262 00cc 77733238 		.ascii	"ws2812_2_Start\000"
+ 262      31325F32 
+ 262      5F537461 
+ 262      727400
  263              	.LASF10:
  264 00db 646F7562 		.ascii	"double\000"
  264      6C6500
- 265              	.LASF15:
- 266 00e2 47656E65 		.ascii	"Generated_Source\\PSoC5\\ws2812_1.c\000"
- 266      72617465 
- 266      645F536F 
- 266      75726365 
- 266      5C50536F 
- 267              	.LASF8:
- 268 0104 756E7369 		.ascii	"unsigned int\000"
- 268      676E6564 
- 268      20696E74 
- 268      00
- 269              	.LASF7:
- 270 0111 6C6F6E67 		.ascii	"long long unsigned int\000"
- 270      206C6F6E 
- 270      6720756E 
- 270      7369676E 
- 270      65642069 
- 271              	.LASF16:
- 272 0128 443A5C31 		.ascii	"D:\\1_work\\my_project\\ws2812\\psoc5lp\\ws2812.cyd"
- 272      5F776F72 
- 272      6B5C6D79 
- 272      5F70726F 
- 272      6A656374 
- 273 0156 736E00   		.ascii	"sn\000"
- 274              	.LASF6:
- 275 0159 6C6F6E67 		.ascii	"long long int\000"
- 275      206C6F6E 
- 275      6720696E 
-ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\cc4yv9aK.s 			page 7
+ 265              	.LASF8:
+ 266 00e2 756E7369 		.ascii	"unsigned int\000"
+ 266      676E6564 
+ 266      20696E74 
+ 266      00
+ 267              	.LASF7:
+ 268 00ef 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 268      206C6F6E 
+ 268      6720756E 
+ 268      7369676E 
+ 268      65642069 
+ 269              	.LASF16:
+ 270 0106 443A5C31 		.ascii	"D:\\1_work\\my_project\\ws2812\\psoc5lp\\ws2812.cyd"
+ 270      5F776F72 
+ 270      6B5C6D79 
+ 270      5F70726F 
+ 270      6A656374 
+ 271 0134 736E00   		.ascii	"sn\000"
+ 272              	.LASF6:
+ 273 0137 6C6F6E67 		.ascii	"long long int\000"
+ 273      206C6F6E 
+ 273      6720696E 
+ 273      7400
+ 274              	.LASF11:
+ 275 0145 63686172 		.ascii	"char\000"
+ 275      00
+ 276              	.LASF2:
+ 277 014a 73686F72 		.ascii	"short int\000"
+ARM GAS  C:\Users\VIDEOH~1\AppData\Local\Temp\ccPD3VlM.s 			page 7
 
 
- 275      7400
- 276              	.LASF11:
- 277 0167 63686172 		.ascii	"char\000"
- 277      00
- 278              	.LASF2:
- 279 016c 73686F72 		.ascii	"short int\000"
- 279      7420696E 
- 279      7400
- 280              	.LASF12:
- 281 0176 75696E74 		.ascii	"uint8\000"
- 281      3800
+ 277      7420696E 
+ 277      7400
+ 278              	.LASF12:
+ 279 0154 75696E74 		.ascii	"uint8\000"
+ 279      3800
+ 280              	.LASF15:
+ 281 015a 47656E65 		.ascii	"Generated_Source\\PSoC5\\ws2812_2.c\000"
+ 281      72617465 
+ 281      645F536F 
+ 281      75726365 
+ 281      5C50536F 
  282              	.LASF4:
  283 017c 6C6F6E67 		.ascii	"long int\000"
  283      20696E74 

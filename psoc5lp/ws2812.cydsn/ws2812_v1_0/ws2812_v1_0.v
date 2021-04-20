@@ -196,7 +196,7 @@ cy_psoc3_dp8 #(.d0_init_a(8'h80), .d1_init_a(8'h08),
         /*  output                  */  .ce1(),
         /*  output                  */  .cl1(),
         /*  output                  */  .z1(z_count_bit),//Флаг равенству 0 счетчика бит
-        /*  output                  */  .ff1(end_ws2812_reset),//Флаг равеству 0xFF регистра A1
+        /*  output                  */  .ff1(end_ws2812_reset),//Флаг равенству 0xFF регистра A1
         /*  output                  */  .ov_msb(),
         /*  output                  */  .co_msb(),
         /*  output                  */  .cmsb(),

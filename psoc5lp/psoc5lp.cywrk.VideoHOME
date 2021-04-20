@@ -6,14 +6,14 @@
 <CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
 <userData>
 <dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
-<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Components">
 <TreeKeys>
 <v>Source</v>
 <v>Components</v>
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="psoc5lp\ws2812">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="psoc5lp">
 <ExpandedNodeIds>
 <v>psoc5lp</v>
 <v>psoc5lp\ws2812</v>
@@ -37,9 +37,59 @@
 <v>psoc5lp\ws2812\Generated_Source</v>
 <v>psoc5lp\ws2812\Generated_Source\PSoC5</v>
 </ExpandedNodeIds>
-<VisibleNodeIds />
+<VisibleNodeIds>
+<v>psoc5lp</v>
+<v>psoc5lp\ws2812</v>
+<v>psoc5lp\ws2812\TopDesign</v>
+<v>psoc5lp\ws2812\ws2812.cydwr</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\Pins</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\Analog</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\Clocks</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\Interrupts</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\DMA</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\System</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\Directives</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\Flash Security</v>
+<v>psoc5lp\ws2812\ws2812.cydwr\EEPROM</v>
+<v>psoc5lp\ws2812\Header Files</v>
+<v>psoc5lp\ws2812\Header Files\color.h</v>
+<v>psoc5lp\ws2812\Header Files\cyapicallbacks.h</v>
+<v>psoc5lp\ws2812\Header Files\font.h</v>
+<v>psoc5lp\ws2812\Source Files</v>
+<v>psoc5lp\ws2812\Source Files\main.c</v>
+<v>psoc5lp\ws2812\Generated_Source</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\Clock_1</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cy_boot</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\Em_EEPROM_Dynamic</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\isr_timer</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\isr_ws2812</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\Timer_1</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\ws2812_1</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\ws2812_port</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cycodeshareexport.ld</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cycodeshareimport.ld</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cycodeshareimport.scat</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydevice.h</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydevice_trm.h</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydevicegnu.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydevicegnu_trm.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydeviceiar.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydeviceiar_trm.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydevicerv.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydevicerv_trm.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cydisabledsheets.h</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cyfitter.h</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cyfitter_cfg.c</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cyfitter_cfg.h</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cyfittergnu.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cyfitteriar.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cyfitterrv.inc</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\cymetadata.c</v>
+<v>psoc5lp\ws2812\Generated_Source\PSoC5\project.h</v>
+</VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="psoc5lp\ws2812\ws2812_v1_0\API\ws2812.h">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="psoc5lp\ws2812\ws2812_v1_0\ws2812_v1_0.v">
 <ExpandedNodeIds>
 <v>psoc5lp</v>
 <v>psoc5lp\ws2812</v>
@@ -52,7 +102,18 @@
 <v>psoc5lp\ws2812\ws2812_v1_0\ws2812_v1_0.cysym</v>
 <v>psoc5lp\ws2812\ws2812_v1_0\ws2812_v1_0.v</v>
 </ExpandedNodeIds>
-<VisibleNodeIds />
+<VisibleNodeIds>
+<v>psoc5lp</v>
+<v>psoc5lp\ws2812</v>
+<v>psoc5lp\ws2812\TopDesign</v>
+<v>psoc5lp\ws2812\TopDesign\TopDesign.cysch</v>
+<v>psoc5lp\ws2812\ws2812_v1_0</v>
+<v>psoc5lp\ws2812\ws2812_v1_0\API</v>
+<v>psoc5lp\ws2812\ws2812_v1_0\API\ws2812.c</v>
+<v>psoc5lp\ws2812\ws2812_v1_0\API\ws2812.h</v>
+<v>psoc5lp\ws2812\ws2812_v1_0\ws2812_v1_0.cysym</v>
+<v>psoc5lp\ws2812\ws2812_v1_0\ws2812_v1_0.v</v>
+</VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
@@ -106,7 +167,12 @@
 <v>psoc5lp\ws2812\ws2812.rpt</v>
 <v>psoc5lp\ws2812\ws2812_timing.html</v>
 </ExpandedNodeIds>
-<VisibleNodeIds />
+<VisibleNodeIds>
+<v>psoc5lp</v>
+<v>psoc5lp\ws2812</v>
+<v>psoc5lp\ws2812\ws2812.rpt</v>
+<v>psoc5lp\ws2812\ws2812_timing.html</v>
+</VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
 <TreeKeysV2>
@@ -129,7 +195,21 @@
 <v>psoc5lp\ws2812\Timer_v2_80.pdf</v>
 <v>psoc5lp\ws2812\ZeroTerminal.pdf</v>
 </ExpandedNodeIds>
-<VisibleNodeIds />
+<VisibleNodeIds>
+<v>psoc5lp</v>
+<v>psoc5lp\ws2812</v>
+<v>psoc5lp\ws2812\PSoC 5LP Architecture TRM</v>
+<v>psoc5lp\ws2812\CY8C58LP Family Datasheet</v>
+<v>psoc5lp\ws2812\System Reference Guides</v>
+<v>psoc5lp\ws2812\System Reference Guides\cy_boot_v6_10</v>
+<v>psoc5lp\ws2812\cy_clock_v2_20.pdf</v>
+<v>psoc5lp\ws2812\cy_constant_v1_0.pdf</v>
+<v>psoc5lp\ws2812\cy_isr_v1_71</v>
+<v>psoc5lp\ws2812\cy_isr_v1_71\cy_isr_v1_71.pdf</v>
+<v>psoc5lp\ws2812\cy_pins_v2_20.pdf</v>
+<v>psoc5lp\ws2812\Timer_v2_80.pdf</v>
+<v>psoc5lp\ws2812\ZeroTerminal.pdf</v>
+</VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
@@ -143,6 +223,7 @@
 <name v=".\ws2812.cydsn\main.c" />
 <name v=".\ws2812.cydsn\font.h" />
 <name v=".\ws2812.cydsn\color.h" />
+<name v=".\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -150,7 +231,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1291, 726" SelectedTabbedMdiWindow="46c5c2fa-e186-4fc4-a548-f0cb841d083f"><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\TopDesign\TopDesign.cysch" Guid="085d6d1c-d504-4790-be33-c72c9d2834b0" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812.cydwr" Guid="fbe0c346-66e4-4243-9641-b366981ef66f" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\main.c" Guid="46c5c2fa-e186-4fc4-a548-f0cb841d083f" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\font.h" Guid="25db473b-1436-476b-994b-0ca463f9b963" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\color.h" Guid="ae9399aa-b04d-46cf-afa6-9143fc0d438d" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="f5f02dd2-c1b6-43f7-8c4d-17afa06ea7b3" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1218, 726" SelectedTabbedMdiWindow="085d6d1c-d504-4790-be33-c72c9d2834b0"><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\TopDesign\TopDesign.cysch" Guid="085d6d1c-d504-4790-be33-c72c9d2834b0" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812.cydwr" Guid="fbe0c346-66e4-4243-9641-b366981ef66f" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\main.c" Guid="46c5c2fa-e186-4fc4-a548-f0cb841d083f" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\font.h" Guid="25db473b-1436-476b-994b-0ca463f9b963" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\color.h" Guid="ae9399aa-b04d-46cf-afa6-9143fc0d438d" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="f5f02dd2-c1b6-43f7-8c4d-17afa06ea7b3" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v" Guid="6186f35d-f04a-4c25-903d-13d66be43006" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

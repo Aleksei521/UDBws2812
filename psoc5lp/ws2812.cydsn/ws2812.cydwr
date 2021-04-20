@@ -278,6 +278,7 @@
       <Data key="9ea1a438-a965-492d-81fc-7cc38e94707c" value="Clock_1" />
     </Group>
     <Group key="Pin">
+      <Data key="532d35d3-4515-4d49-ad3e-8dc71f81cb26" value="Pin_1" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="ws2812_port" />
     </Group>
   </Group>
@@ -3365,6 +3366,11 @@
     </Group>
   </Group>
   <Group key="Pin2">
+    <Group key="532d35d3-4515-4d49-ad3e-8dc71f81cb26">
+      <Group key="0">
+        <Data key="Port Format" value="1,6" />
+      </Group>
+    </Group>
     <Group key="e851a3b9-efb8-48be-bbb8-b303b216c393">
       <Group key="0">
         <Data key="Port Format" value="1,7" />

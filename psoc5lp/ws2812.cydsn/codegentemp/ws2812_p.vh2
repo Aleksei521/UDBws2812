@@ -1,5 +1,5 @@
 -- Project:   ws2812
--- Generated: 04/19/2021 23:06:38
+-- Generated: 04/20/2021 14:51:47
 -- PSoC Creator  4.4
 
 ENTITY ws2812 IS
