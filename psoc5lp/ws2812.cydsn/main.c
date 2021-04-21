@@ -31,9 +31,9 @@ void writeChar(uint8 column_display, uint8 column_char, uint8 id_char, uint32 co
 void scrolStr(uint8 *str, uint16 len, uint32 *char_color, uint32 background_color);
 
 CY_ISR_PROTO(WS2812_HANDLER);
-CY_ISR_PROTO(TIMER100HZ_HANDLER);
+CY_ISR_PROTO(TIMER333HZ_HANDLER);
 
-CY_ISR(TIMER100HZ_HANDLER)
+CY_ISR(TIMER333HZ_HANDLER)
 {
     if(Timer_1_STATUS & TIMER_ISR_TC_MASK)
     {
@@ -69,7 +69,7 @@ int main(void)
     Timer_1_Start();
     ws2812_1_Start();
     isr_ws2812_StartEx(WS2812_HANDLER);
-    isr_timer_StartEx(TIMER100HZ_HANDLER);
+    isr_timer_StartEx(TIMER333HZ_HANDLER);
     
     uint16 delay=0;
     for(;;)

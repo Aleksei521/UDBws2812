@@ -6,14 +6,14 @@
 <CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
 <userData>
 <dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
-<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Components">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
 <TreeKeys>
 <v>Source</v>
 <v>Components</v>
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="psoc5lp">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="psoc5lp\ws2812\Source Files\main.c">
 <ExpandedNodeIds>
 <v>psoc5lp</v>
 <v>psoc5lp\ws2812</v>
@@ -218,12 +218,7 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v=".\ws2812.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\ws2812.cydsn\ws2812.cydwr" />
 <name v=".\ws2812.cydsn\main.c" />
-<name v=".\ws2812.cydsn\font.h" />
-<name v=".\ws2812.cydsn\color.h" />
-<name v=".\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -231,7 +226,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1218, 726" SelectedTabbedMdiWindow="085d6d1c-d504-4790-be33-c72c9d2834b0"><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\TopDesign\TopDesign.cysch" Guid="085d6d1c-d504-4790-be33-c72c9d2834b0" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812.cydwr" Guid="fbe0c346-66e4-4243-9641-b366981ef66f" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\main.c" Guid="46c5c2fa-e186-4fc4-a548-f0cb841d083f" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\font.h" Guid="25db473b-1436-476b-994b-0ca463f9b963" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\color.h" Guid="ae9399aa-b04d-46cf-afa6-9143fc0d438d" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="f5f02dd2-c1b6-43f7-8c4d-17afa06ea7b3" /><DocumentWindow Key="D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v" Guid="6186f35d-f04a-4c25-903d-13d66be43006" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1291, 726" SelectedTabbedMdiWindow="f7cde2d6-1f53-416f-b6b0-256cbd0fd428"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="f5f02dd2-c1b6-43f7-8c4d-17afa06ea7b3" /><DocumentWindow Key="C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\main.c" Guid="f7cde2d6-1f53-416f-b6b0-256cbd0fd428" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

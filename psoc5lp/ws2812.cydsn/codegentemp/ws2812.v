@@ -1,6 +1,6 @@
 // ======================================================================
 // ws2812.v generated from TopDesign.cysch
-// 04/20/2021 at 14:51
+// 04/21/2021 at 09:41
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -150,11 +150,11 @@
 `endif
 
 `ifdef WARP
-`define CY_BLK_DIR "D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0"
-`include "D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v"
+`define CY_BLK_DIR "C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0"
+`include "C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v"
 `else
-`define CY_BLK_DIR "D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0"
-`include "D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v"
+`define CY_BLK_DIR "C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0"
+`include "C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v"
 `endif
 
 // Component: cy_constant_v1_0

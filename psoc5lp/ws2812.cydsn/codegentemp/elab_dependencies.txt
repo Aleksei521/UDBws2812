@@ -1,8 +1,8 @@
-D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\TopDesign\TopDesign.cysch
-D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.cysym
-D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v
-D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\API\ws2812.h
-D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\API\ws2812.c
+C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\TopDesign\TopDesign.cysch
+C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.cysym
+C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\ws2812_v1_0.v
+C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\API\ws2812.h
+C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812_v1_0\API\ws2812.c
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_clock_v2_20\cy_clock_v2_20.cyprimitive
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_clock_v2_20\cy_clock_v2_20.cysym
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\cy_clock_v2_20\cy_clock_v2_20.pdf
@@ -102,7 +102,7 @@ C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrim
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\OneTerminal\OneTerminal.pdf
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\OneTerminal\OneTerminal.v
 C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\OneTerminal\version.cypatch
-D:\1_work\my_project\ws2812\psoc5lp\ws2812.cydsn\ws2812.cydwr
+C:\GitHub\UDBws2812\UDBws2812\psoc5lp\ws2812.cydsn\ws2812.cydwr
 C:\Users\VideoHOME\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\cy_boot_v6_10\PSoC5\API\cm3gcc.ld
 C:\Users\VideoHOME\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\cy_boot_v6_10\PSoC5\API\Cm3RealView.scat
 C:\Users\VideoHOME\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\cy_boot_v6_10\PSoC5\API\Cm3Start.c
