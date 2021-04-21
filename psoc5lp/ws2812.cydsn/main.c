@@ -28,7 +28,7 @@ void writePixelRGB(uint8 x, uint8 y, uint32 color);
 void fillScreen(uint32 color);
 void copyBuffer(uint32 *src, uint32 *dst, uint32 num);
 void writeChar(uint8 column_display, uint8 column_char, uint8 id_char, uint32 color, uint32 background_color);
-void scrolStr(uint8 *str, uint16 len, uint32 *char_color, uint32 background_color);
+void scrollStr(uint8 *str, uint16 len, uint32 *char_color, uint32 background_color);
 
 CY_ISR_PROTO(WS2812_HANDLER);
 CY_ISR_PROTO(TIMER333HZ_HANDLER);
@@ -77,28 +77,32 @@ int main(void)
         if((delay++)==20)
         {
             delay=0;
-            scrolStr(text, sizeof(text), color , BACKGROUND);
+            scrollStr(text, sizeof(text), color , BACKGROUND);
         }
         while(ws2812_struct.wait_tx==0);
         ws2812_struct.wait_tx=0;
         copyBuffer((uint32*)ws2812_struct.draw_buffer,(uint32*)ws2812_struct.buffer,sizeof(ws2812_struct.buffer)/4);            
     }
 }
-void scrolStr(uint8 *str, uint16 len, uint32 *char_color, uint32 background_color)
+void scrollStr(uint8 *str, uint16 len, uint32 *char_color, uint32 background_color)
 {
     static uint16 begin_position=LED_WIDTH-1;
     static uint16 index_position=0;
     static uint16 point_position=0;
-    for(int16 i=0;i<((LED_WIDTH-begin_position-1)/FONT_WIDTH)+1;i++)
+    uint16 char_point=begin_position;
+    uint16 i=0;
+    while(char_point<LED_WIDTH)
     {
         uint8 idx_char=index_position+i;
         if(idx_char==len)
             idx_char=0;
-        writeChar(i==0 ? begin_position : begin_position+FONT_WIDTH-point_position+FONT_WIDTH*(i-1),\
+        writeChar(char_point,\
             i==0 ? point_position : 0,\
             str[idx_char],\
             char_color[idx_char],\
             background_color);
+        char_point += i==0? FONT_WIDTH-point_position : FONT_WIDTH;
+        i++;
     }
     if(begin_position!=0)
         begin_position--;
